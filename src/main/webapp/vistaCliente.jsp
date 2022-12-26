@@ -67,7 +67,7 @@
           });
       </script>
       <nav class="navbar navbar-expand-lg navbar-light py-3 d-block" data-navbar-on-scroll="data-navbar-on-scroll">
-        <div class="container"><a class="navbar-brand" href="index.jsp"><img class="d-inline-block" src="assets/img/gallery/logo.png" width="50" alt="logo" /><span class="fw-bold text-primary ms-2">VacationAsHome Host</span></a>
+        <div class="container"><a class="navbar-brand" href="index.jsp"><img class="d-inline-block" src="assets/img/gallery/logo.png" width="50" alt="logo" /><span class="fw-bold text-primary ms-2">VacationAsHome</span></a>
           <button class="navbar-toggler cobuttollapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
           <div class="collapse navbar-collapse border-top border-lg-0 mt-4 mt-lg-0" id="navbarSupportedContent">
             <ul class="navbar-nav mx-auto pt-2 pt-lg-0 font-base">
@@ -96,7 +96,7 @@
               <div class="pt-5">
                    <div class="tab-content" id="nav-tabContent">
                     <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-                      <form class="row g-4 mt-5" action="ConsultaClienteServlet" metod="post">
+                      <form class="row g-4 mt-5" action="ConsultarAlojamientosServlet" metod="post">
                         <div class="col-sm-6 col-md-6 col-xl-5">
                           <div class="input-group-icon">
                             <label class="form-label visually-hidden" for="inputAddress1">Provincia</label>
@@ -150,8 +150,8 @@
                 <div class="container">
                 <div class="row">
                  <div class="col-6 col-sm-4 col-lg-6">
-            <% ArrayList<Alojamiento>  dataList= (ArrayList<Alojamiento>)request.getAttribute("Aloj1");
-               ArrayList<Imagen>   im= (ArrayList<Imagen> )request.getAttribute("img1");
+            <% ArrayList<Alojamiento>  dataList= (ArrayList<Alojamiento>)request.getAttribute("Aloj");
+               ArrayList<Imagen>   im= (ArrayList<Imagen> )request.getAttribute("img");
                         if(dataList!=null){
                             for(int i=0; i<dataList.size(); i++){
                                 Alojamiento r = dataList.get(i);
@@ -163,8 +163,6 @@
                             <h5 ><%= r.getNombre() %></h5>
                             <span class="fw-bold text-1000 mb-4 text-truncate"><%=r.getLocalidad() %></span><span class="text-800 fs--1 me-2"><i class="fas fa-calendar"></i></span><span class="fw-bold text-1000 mb-4 text-truncate"><%=r.getValoracionGlobal() %></span>
                             <h6><%= r.getUbicacionDescrita() %></h6>
-                            <h6 class="fw-bold text-1000 mb-4 text-truncate"><%= r.getCaracteristicas() %></h6>
-                            <h6 class="fw-bold text-1000 mb-4 text-truncate"><%= r.getServicio() %></h6>
                             <h1 class="mb-3 text-primary fw-bolder fs-4"><span>$175</span>
                                 <form class="row g-4 mt-5" action="DetallesReservaServlet" metod="post">
                                     <input class="form-control input-box form-voyage-control" id="ocultar" name="nombre" style="display: none;" type="text"  placeholder=<%=r.getNombre()%> />

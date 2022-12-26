@@ -12,6 +12,7 @@ import java.util.Date;
 public class Precio {
     private float precioNoche =0;
     private float precioFinDeSemana = 0;
+    private float precioSemana = 0;
     private float precioMes = 0;
     private Date fechaIncio  = new Date();
     private Date fechaFin  = new Date();
@@ -22,6 +23,10 @@ public class Precio {
         this.precioNoche = precioNoche;
     }
 
+    public void setPrecioSemana(float precioSemana) {
+        this.precioSemana = precioSemana;
+    }
+    
     public void setPrecioFinDeSemana(float precioFinDeSemana) {
         this.precioFinDeSemana = precioFinDeSemana;
     }
@@ -52,6 +57,10 @@ public class Precio {
 
     public float getPrecioFinDeSemana() {
         return this.precioFinDeSemana;
+    }
+    
+    public float getPrecioSemana() {
+        return this.precioSemana;
     }
 
     public float getPrecioMes() {

@@ -5,8 +5,12 @@
  */
 package Controlador;
 
-
+import Datos.PreciosDB;
+import Modelo.Alojamiento;
+import Modelo.Precio;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -22,8 +26,8 @@ import javax.servlet.http.HttpSession;
  *
  * @author franc
  */
-@WebServlet(name = "ConsultarAlojamientosServlet", urlPatterns = {"/ConsultarAlojamientosServlet"})
-public class ConsultarAlojamientosServlet extends HttpServlet {
+@WebServlet(name = "NuevosPreciosServlet", urlPatterns = {"/NuevosPreciosServlet"})
+public class NuevosPreciosServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,73 +41,73 @@ public class ConsultarAlojamientosServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        // variables que vamos a utilizar
-        String provincia = "";
-        String municipio= "";
-        String date1 = "";
-        String date2 = "";
-        int numPersonas = 0;
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        ArrayList Aloj= new  ArrayList<> ();
-        ArrayList img = new  ArrayList<> ();
-        ArrayList precios = new  ArrayList<> ();
-        // recuperamos el email de la session
+        
         HttpSession session = request.getSession();
         String email = (String) session.getAttribute("user");
-        boolean banderaCliente = false;
-        String nextStep = "";
-        try{
-            if(Datos.AnfitrionDB.emailExists(email)){
-                banderaCliente = false;
-                nextStep = "/vistaAnfitrion.jsp";
-            } else if(Datos.ClienteDB.emailExists(email)){
-                banderaCliente = true;
-                nextStep = "/vistaCliente.jsp";
-            }else{
-                banderaCliente = true;
-                nextStep = "/index.jsp";
-            }
+        String coordenadas = "";
+        
+        // parametros a modificar
+        float precioNoche=0;
+        float precioFinSemana=0;
+        float precioSemana=0;
+        float precioMes=0;
+        String fechaInicio = "";
+        String fechaFin = "";
+        Date date1 = new Date();
+        Date date2 = new Date();
+        
+        // bandera en caso de meter mal los datos
+        boolean flag = false;
+        
+        // formateamos la fecha
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");
+        
+        try {
+            precioNoche=Float.parseFloat(request.getParameter("precioNoche"));
+            precioFinSemana=Float.parseFloat(request.getParameter("precioFinSemana"));
+            precioSemana=Float.parseFloat(request.getParameter("precioSemana"));
+            precioMes=Float.parseFloat(request.getParameter("precioMes"));
             
-            /* TODO output your page here. You may use following sample code. */
-            provincia=request.getParameter("inputAddress1");
-            municipio=request.getParameter("inputAddress2");
-            date1 = request.getParameter("inputdateOne");
-            Date d1 = dateFormat.parse(date1);
-            date2 = request.getParameter("inputDateTwo");
-            Date d2 = dateFormat.parse(date2);
-            numPersonas = Integer.parseInt(request.getParameter("inputPersonOne"));
-            if(banderaCliente){
-                Aloj=Datos.AlojamientoDB.consulta(provincia,municipio,d1,d2,numPersonas);
-            } else{
-                Aloj=Datos.AlojamientoDB.consultaAnfitrion(email,provincia,municipio);
-                precios = Datos.PreciosDB.buscarPreciosAlojamientos(Aloj);
+            // comprobamos los datos
+            if(precioNoche < precioFinSemana && precioFinSemana < precioSemana && precioSemana < precioMes){
+                fechaInicio = request.getParameter("fechaInicio");
+                date1 = dateFormat.parse(fechaInicio);
+                fechaFin = request.getParameter("fechaFin");
+                date2 = dateFormat.parse(fechaFin);
+                if(date2.after(date1)){
+                    Precio p = new Precio();
+                    p.setPrecioNoche(precioNoche);
+                    p.setPrecioFinDeSemana(precioFinSemana);
+                    p.setPrecioSemana(precioSemana);
+                    p.setPrecioMes(precioMes);
+                    p.setFechaIncio(date1);
+                    p.setFechaFin(date2);
+                    
+                    coordenadas = request.getParameter("coordenadas");
+                    // modificamos en la base de datos los parametros
+                    PreciosDB.modificaPrecios(p, coordenadas);
+                    
+                    flag = false;
+                }else{
+                    flag=true;
+                }
+            }else{
+                flag=true;
             }
-            img=Datos.ImagenDB.buscarImagenesAlojamientos(Aloj);
-        }catch(Exception e){
+           
+        }catch(NumberFormatException | ParseException e){
             System.out.println(e);
         }
         
-        
-        // una vez se pulse el boton, se captura su evento y se recraga la misma pagina
         try {
-            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextStep);
-            request.setAttribute("Aloj", Aloj);
-            request.setAttribute("img", img);
-             if(banderaCliente){
-                request.setAttribute("fechaEntrada", date1);
-                request.setAttribute("fechaSalida", date2);
-                request.setAttribute("numpersonas", numPersonas);
-            }else{
-                request.setAttribute("precios", precios);
-            }
-            // save in the session the email of the user and 
-            // is save in the request object
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/vistaAnfitrion.jsp");
+            if(flag) request.setAttribute("correcto", "mal");
             dispatcher.forward(request, response);
         } catch (IOException | ServletException e) {
             System.out.println(e);
         }
-        }
-    
+    }
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -143,4 +147,4 @@ public class ConsultarAlojamientosServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-   }
+}

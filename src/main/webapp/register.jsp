@@ -44,6 +44,23 @@
     <!--    Main Content-->
     <!-- ===============================================-->
     <main class="main" id="top">
+      <script>
+          document.addEventListener("DOMContentLoaded", function() {
+            // Comprobar si el formulario se debe mostrar o ocultar
+            if (localStorage.getItem("mostrarFormulario3") === "true") {
+              document.getElementById("texto").style.display = "block";
+            } else {
+              document.getElementById("texto").style.display = "none";
+            }
+            localStorage.setItem("mostrarFormulario3", "false");
+            // Mostrar formulario al hacer clic en el botón
+            document.getElementById("login").addEventListener("click", function() {
+              document.getElementById("texto").style.display = "block";
+              // Guardar el estado del formulario en el almacenamiento local
+              localStorage.setItem("mostrarFormulario3", "true");
+            });
+          });
+      </script>
       <nav class="navbar navbar-expand-lg navbar-light py-3 d-block" data-navbar-on-scroll="data-navbar-on-scroll">
         <div class="container"><a class="navbar-brand" href="index.jsp"><img class="d-inline-block" src="assets/img/gallery/logo.png" width="50" alt="logo" /><span class="fw-bold text-primary ms-2">VacationAsHome</span></a>
           <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
@@ -88,13 +105,13 @@
                         <% String texto = (String)request.getAttribute("showText"); 
                         System.out.print("texto: " + texto);
                             if(texto!=null){%>
-                                  <br><h2 class="display-3 fw-normal"><%= texto%></h2>
+                                  <br><h2 id= "texto" class="display-3 fw-normal"><%= texto%></h2>
                             <%}else{%>
                                   <p></p>
                             <%}%>
                           
                         <div class="col-12 col-xl-10 col-lg-12 d-grid mt-6">
-                          <button class="btn btn-secondary" type="submit">Login </button>
+                          <button id="login" class="btn btn-secondary" type="submit">Login </button>
                         </div>
                       </form>
                     </div>
