@@ -167,19 +167,19 @@
                                     <input class="form-control input-box form-voyage-control" id="fechaInicio" type="date" placeholder=<%="fechaInicio ".concat(""+prec.get(i).getFechaIncio()) %>/><span class="nav-link-icon text-800 fs--1 input-box-icon"><i class="fas fa-map-marker-alt"></i></span>
                                 </div><div class="input-group-icon mt-2">
                                     <label class="form-label visually-hidden" for="fechaFin" name="fechaFin" type="date">fechaFin</label>
-                                    <input class="form-control input-box form-voyage-control" id="fechaFin" type="text" placeholder=<%="fechaFin ".concat(""+prec.get(i).getFechaFin()) %>/><span class="nav-link-icon text-800 fs--1 input-box-icon"><i class="fas fa-map-marker-alt"></i></span>
+                                    <input class="form-control input-box form-voyage-control" id="fechaFin" type="date" placeholder=<%="fechaFin ".concat(""+prec.get(i).getFechaFin()) %>/><span class="nav-link-icon text-800 fs--1 input-box-icon"><i class="fas fa-map-marker-alt"></i></span>
                                 </div>
                                 <div class="mt-4 col-12 col-xl-12 col-lg-12 d-grid">
                                     <button class="btn btn-secondary" type="submit">Guardar</button>
                                 </div>
                                 
-                                <% String correcto = "mal";
-                                    if(correcto.equals("mal")){  %>
+                                    <% String correcto = (String)request.getAttribute("correcto");
+                                    if(correcto!=null){  %>
                                         <div class="col-lg-7 mx-auto text-center mb-6">
-                                            <h5 class="fw-bold fs-3 fs-lg-5 lh-sm mb-3" style="color: red" >Has introducido algun precio Mal.</h5>
-                                            <h5 class="fs-3 fs-lg-5 lh-sm mb-3" style="color: red" >Recuerda: Noche < Finde < Semana < Mes </h5>
+                                            <p class="fw-bold fs-3 fs-lg-5 lh-sm mb-3" style="color: red" >Has introducido algun precio Mal.</p>
+                                            <p class="fs-3 fs-lg-5 lh-sm mb-3" style="color: red" >Recuerda: Noche < Finde < Semana < Mes </p>
                                         </div>
-                                <% } %>
+                                <%  } %>
                                 
                               </form>
                             </div>
@@ -187,9 +187,7 @@
                       </div>
                         <% } //cierre del primer for
                         } else{ %>
-                        <div class="col-lg-7 mx-auto text-center mb-6">
                             <h5 class="fw-bold fs-3 fs-lg-5 lh-sm mb-3" style="color: red" >No results found</h5>
-                        </div>
                         <%}%>
                         
                     </div>

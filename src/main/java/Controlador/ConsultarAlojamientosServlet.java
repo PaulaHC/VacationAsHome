@@ -51,6 +51,7 @@ public class ConsultarAlojamientosServlet extends HttpServlet {
         HttpSession session = request.getSession();
         String email = (String) session.getAttribute("user");
         boolean banderaCliente = false;
+        boolean banderaFecha = false;
         String nextStep ="/index.jsp";
         try{
             if(Datos.AnfitrionDB.emailExists(email)){
@@ -73,13 +74,19 @@ public class ConsultarAlojamientosServlet extends HttpServlet {
                 Date d1 = dateFormat.parse(date1);
                 date2 = request.getParameter("inputDateTwo");
                 Date d2 = dateFormat.parse(date2);
-                Aloj=Datos.AlojamientoDB.consulta(provincia, municipio, d1, d2, numPersonas);
+                if(d2.after(d1)){
+                    Aloj=Datos.AlojamientoDB.consulta(provincia, municipio, d1, d2, numPersonas);
+                }else{
+                    banderaFecha=true;
+                }
+                
             } else{
                 if(provincia!=null) Aloj=Datos.AlojamientoDB.consultaAnfitrion(email,provincia,municipio);
             }
-            
-            precios = Datos.PreciosDB.buscarPreciosAlojamientos(Aloj);
-            img=Datos.ImagenDB.buscarImagenesAlojamientos(Aloj);
+            if(!banderaFecha){
+                precios = Datos.PreciosDB.buscarPreciosAlojamientos(Aloj);
+                img=Datos.ImagenDB.buscarImagenesAlojamientos(Aloj);
+            }
         }catch(Exception e){
             System.out.println(e);
         }
@@ -91,11 +98,13 @@ public class ConsultarAlojamientosServlet extends HttpServlet {
             request.setAttribute("Aloj", Aloj);
             request.setAttribute("img", img);
             request.setAttribute("precios", precios);
-             if(banderaCliente){
+            if(banderaCliente){
                 request.setAttribute("fechaEntrada", date1);
                 request.setAttribute("fechaSalida", date2);
                 request.setAttribute("numpersonas", numPersonas);
             }
+             
+            if(banderaFecha) request.setAttribute("fechasMal", "Compuebe las fechas");
             // save in the session the email of the user and 
             // is save in the request object
             dispatcher.forward(request, response);
