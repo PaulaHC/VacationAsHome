@@ -45,6 +45,7 @@ public class DetallesReservaServlet extends HttpServlet {
         Precio precio= new Precio();
         try{
             nom= (String)request.getParameter("nombre");
+            nom=nom.replaceAll("-", " ");
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             Date d1 = dateFormat.parse(request.getParameter("fechaEntrada"));
             Date d2 = dateFormat.parse(request.getParameter("fechaSalida"));

@@ -175,10 +175,8 @@
                                 
                                     <% String correcto = (String)request.getAttribute("correcto");
                                     if(correcto!=null){  %>
-                                        <div class="col-lg-7 mx-auto text-center mb-6">
-                                            <p class="fw-bold fs-3 fs-lg-5 lh-sm mb-3" style="color: red" >Has introducido algun precio Mal.</p>
-                                            <p class="fs-3 fs-lg-5 lh-sm mb-3" style="color: red" >Recuerda: Noche < Finde < Semana < Mes </p>
-                                        </div>
+                                        <p class="fw-bold fs-3 fs-lg-5 lh-sm mb-3" style="color: red" >Has introducido algun precio Mal.</p>
+                                        <p class="fs-3 fs-lg-5 lh-sm mb-3" style="color: red" >Recuerda: Noche < Finde < Semana < Mes </p>
                                 <%  } %>
                                 
                               </form>
@@ -186,9 +184,7 @@
                         </div>
                       </div>
                         <% } //cierre del primer for
-                        } else{ %>
-                            <h5 class="fw-bold fs-3 fs-lg-5 lh-sm mb-3" style="color: red" >No results found</h5>
-                        <%}%>
+                        } %>
                         
                     </div>
                   </div>

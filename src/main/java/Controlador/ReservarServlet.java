@@ -60,7 +60,7 @@ public class ReservarServlet extends HttpServlet {
             comentarios = (String)request.getParameter("comentarios");
             HttpSession session = request.getSession();
             String cliente = (String) session.getAttribute("user");
-            
+            nom= (String)request.getParameter("nombre").replaceAll("-", " ");
             if(pago!=null){
                 res.setDividePago(true);
             }else{

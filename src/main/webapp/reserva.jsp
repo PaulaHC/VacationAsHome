@@ -73,6 +73,7 @@
                             float prec = (float)request.getAttribute("prec");
                             String  nom = (String)request.getAttribute("nom");
                             String comment = (String) request.getAttribute("textReserva");
+                            
                         if(dataList!=null||comment.equals("Empty comment")){
                              SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
                              String date1=dateFormat.format(dataList.getFechaEntrada());
@@ -90,6 +91,7 @@
                                           <span class="text-800 fs--1 me-2"><i class="fas fa-map-marker-alt"></i></span><span class="text-900 me-3">Dividir pago</span><input name="check" type="checkbox" value='true'>
                                       </div>
                                       <div><textarea name="comentarios" style="width: 600px; height: 100px;">Comentarios</textarea></div>
+                                    <input class="form-control input-box form-voyage-control"  name="nombre" type="hidden" value=<%=nom.replaceAll(" ", "-")%> />
                                     <input class="form-control input-box form-voyage-control"  name="fechaEntrada" type="hidden" value=<%=date1%> />
                                     <input class="form-control input-box form-voyage-control"  name="fechaSalida" type="hidden" value=<%=date2 %> />
                                     <input class="form-control input-box form-voyage-control"  name="numHuespe" type="hidden" value=<%=dataList.getNumHuespedes() %> />

@@ -161,6 +161,8 @@
                             for(int i=0; i<dataList.size(); i++){
                                 Alojamiento r = dataList.get(i);
                                 Imagen ig=im.get(i);
+                                String nom=r.getNombre();
+                                nom=nom.replaceAll(" ", "-");
                                 
                         %>
                     <div class="col-md-4 mb-3 mb-md-0 h-100">
@@ -171,7 +173,7 @@
                             <h6><%= r.getUbicacionDescrita() %></h6>
                             <h1 class="mb-3 text-primary fw-bolder fs-4"><span><%=""+prec.get(i).getPrecioNoche() %>$</span><span class="text-900 fs--1 fw-normal">/Por Noche</span></h1>
                                 <form class="row g-4 mt-5" action="DetallesReservaServlet" metod="post">
-                                    <input class="form-control input-box form-voyage-control" id="ocultar" name="nombre"  type="hidden"  value=<%=r.getNombre()%> />
+                                    <input class="form-control input-box form-voyage-control" id="ocultar" name="nombre"  type="hidden"  value=<%=nom%> />
                                     <input class="form-control input-box form-voyage-control" id="ocultar" name="fechaEntrada"  type="hidden" value=<%=request.getAttribute("fechaEntrada") %> />
                                     <input class="form-control input-box form-voyage-control" id="ocultar" name="fechaSalida"  type="hidden" value=<%=request.getAttribute("fechaSalida") %> />
                                     <input class="form-control input-box form-voyage-control" id="ocultar" name="numHuespe"  type="hidden" value=<%=request.getAttribute("numpersonas")%> />
