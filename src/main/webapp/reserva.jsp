@@ -96,16 +96,17 @@
                                     <input class="form-control input-box form-voyage-control"  name="estado" type="hidden" value="realizada" />
                                     <input class="form-control input-box form-voyage-control"  name="Alojamiento_ubicacionPrecisa" type="hidden" value=<%=dataList.getAlojamiento_ubicacion_precisa() %> />
                                     <input class="form-control input-box form-voyage-control"  name="Alojamiento_Anfitrion_email" type="hidden" value=<%=dataList.getAlojamiento_anfitrion_email() %> />
+                                    <%} 
+                                        if(comment!=null){ %>
+                                            <p class="fw-bold fs-3 fs-lg-5 lh-sm mb-3" style="color: red" ><%=comment %></p>
+                                        <% } %>
                                       <div class="mt-4 col-12 col-xl-12 col-lg-12 d-grid">
                                           <button class="btn btn-secondary" type="submit">Reservar</button>
+                                          
                                       </div>
                                   </div>
                               </div>
-                <%} 
                 
-                if(comment!=null){ %>
-                    <p class="fw-bold fs-3 fs-lg-5 lh-sm mb-3" style="color: red" ><%=comment %></p>
-                <% } %>
           </form>
       
       <!-- ============================================-->

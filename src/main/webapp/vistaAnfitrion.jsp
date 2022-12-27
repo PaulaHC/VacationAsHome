@@ -132,7 +132,7 @@
                         %>
                       <!-- Duplicar este div para cada uno de los alojaminetos dipsonibles -->
                       <div class="row col-md-12 mb-3 mb-md-0 h-100 mt-5">
-                        <div class="col-md-6 card card-span h-100 text-white"><img class="img-fluid h-100" src="assets/img/gallery/maldives.png" alt="..." />
+                        <div class="col-md-6 card card-span h-100 text-white justify-content-center display-1"><img class="img-fluid h-100" src="assets/img/gallery/maldives.png" alt="..." />
                             <!--<div class="card-img-overlay ps-0">
                                 <span class="badge bg-secondary ms-3 me-1 p-2"><a href="reservarCliente.jsp">Reservar</a></span>
                                 <span class="badge bg-secondary p-2"><a href="#!">Mas Info</a></span>
@@ -150,24 +150,24 @@
                               <form action="NuevosPreciosServlet" method="post">
                                 <input type="hidden" name="coordenadas" value= <%=r.getUbicacionPrecisaGPS()%>/>
                                 <h5 class="fw-bold text-1000 mb-4 text-truncate" ><%= r.getNombre() %></h5>
-                                <div class="input-group-icon">
+                                <div class="mt-3">
                                     <label class="form-label visually-hidden" for="precioNoche" name="precioNoche" type="number">precioNoche</label> 
-                                    <input class="form-control input-box form-voyage-control" id="precioNoche" type="text" placeholder=<%="precioNoche ".concat(""+prec.get(i).getPrecioNoche()) %>/><span class="nav-link-icon text-800 fs--1 input-box-icon"></span>
-                                </div> <div class="input-group-icon mt-2">
+                                    <input class="form-control input-box form-voyage-control" id="precioNoche" name="precioNoche" type="text" placeholder=<%=prec.get(i).getPrecioNoche() %>/><span class="nav-link-icon text-800 fs--1 input-box-icon"><i class="fas fa-map-marker-alt">precioNoche</i></span>
+                                </div> <div class="mt-3">
                                     <label class="form-label visually-hidden" for="precioFinSemana" name="precioFinSemana" type="number">precioFinSemana</label>
-                                    <input class="form-control input-box form-voyage-control" id="precioFinSemana" type="text" placeholder=<%="precioFinSemana ".concat(""+prec.get(i).getPrecioFinDeSemana()) %>/><span class="nav-link-icon text-800 fs--1 input-box-icon"><i class="fas fa-map-marker-alt"></i></span>
-                                </div> <div class="input-group-icon mt-2">
+                                    <input class="form-control input-box form-voyage-control" id="precioFinSemana" name="precioFinSemana" type="text" placeholder=<%=prec.get(i).getPrecioFinDeSemana() %>/><span class="nav-link-icon text-800 fs--1 input-box-icon"><i class="fas fa-map-marker-alt">precioFinSemana</i></span>
+                                </div> <div class="mt-3">
                                     <label class="form-label visually-hidden" for="precioSemana" name="precioSemana" type="number">precioSemana</label>
-                                    <input class="form-control input-box form-voyage-control" id="precioSemana" type="text" placeholder=<%="precioSemana ".concat(""+prec.get(i).getPrecioSemana()) %>/><span class="nav-link-icon text-800 fs--1 input-box-icon"><i class="fas fa-map-marker-alt"></i></span>
-                                </div> <div class="input-group-icon mt-2">
+                                    <input class="form-control input-box form-voyage-control" id="precioSemana" name="precioSemana" type="text" placeholder=<%=+prec.get(i).getPrecioSemana() %>/><span class="nav-link-icon text-800 fs--1 input-box-icon"><i class="fas fa-map-marker-alt">precioSemana</i></span>
+                                </div> <div class="mt-3">
                                     <label class="form-label visually-hidden" for="precioMes" name="precioMes" type="number">precioMes</label>
-                                    <input class="form-control input-box form-voyage-control" id="precioMes" type="text" placeholder=<%="precioMes ".concat(""+prec.get(i).getPrecioMes()) %>/><span class="nav-link-icon text-800 fs--1 input-box-icon"><i class="fas fa-map-marker-alt"></i></span>
-                                </div><div class="input-group-icon mt-2">
-                                    <label class="form-label visually-hidden" for="fechaInicio" name="fechaInicio" type="date">precioMes</label>
-                                    <input class="form-control input-box form-voyage-control" id="fechaInicio" type="date" placeholder=<%="fechaInicio ".concat(""+prec.get(i).getFechaIncio()) %>/><span class="nav-link-icon text-800 fs--1 input-box-icon"><i class="fas fa-map-marker-alt"></i></span>
-                                </div><div class="input-group-icon mt-2">
-                                    <label class="form-label visually-hidden" for="fechaFin" name="fechaFin" type="date">fechaFin</label>
-                                    <input class="form-control input-box form-voyage-control" id="fechaFin" type="date" placeholder=<%="fechaFin ".concat(""+prec.get(i).getFechaFin()) %>/><span class="nav-link-icon text-800 fs--1 input-box-icon"><i class="fas fa-map-marker-alt"></i></span>
+                                    <input class="form-control input-box form-voyage-control" id="precioMes" name="precioMes" type="text" placeholder=<%=+prec.get(i).getPrecioMes() %>/><span class="nav-link-icon text-800 fs--1 input-box-icon"><i class="fas fa-map-marker-alt">precioMes</i></span>
+                                </div><div class="mt-3">
+                                    <label class="form-label visually-hidden" for="fechaInicio" name="fechaInicio" type="date">fechaInicio</label>
+                                    <input class="form-control input-box form-voyage-control" id="fechaInicio" name="fechaInicio" type="date" placeholder=<%=prec.get(i).getFechaIncio() %>/><span class="nav-link-icon text-800 fs--1 input-box-icon"><i class="fas fa-map-marker-alt">fechaInicio</i></span>
+                                </div><div class="mt-3">
+                                    <span class="form-label visually-hidden" for="fechaFin" name="fechaFin" type="date">fechaFin</span>
+                                    <input class="form-control input-box form-voyage-control" id="fechaFin" name="fechaFin" type="date" placeholder=<%=prec.get(i).getFechaFin() %>/><span class="nav-link-icon text-800 fs--1 input-box-icon"><i class="fas fa-map-marker-alt">fechaFin</i></span>
                                 </div>
                                 <div class="mt-4 col-12 col-xl-12 col-lg-12 d-grid">
                                     <button class="btn btn-secondary" type="submit">Guardar</button>

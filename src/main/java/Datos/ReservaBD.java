@@ -19,7 +19,6 @@ public class ReservaBD {
         Conexion pool = Conexion.getInstance();
         Connection connection = pool.getConnection();
         PreparedStatement ps = null;
-        ResultSet rs = null;
         String query = "INSERT INTO zerberusbd.reserva (fechaEntrada, fechaSalida, numHuespedes, comentarios, estado, dividePago, Cliente_email, Alojamiento_ubicacionPrecisa, Alojamiento_Anfitrion_email) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?);";
         
         try {
@@ -35,8 +34,8 @@ public class ReservaBD {
             ps.setString(7, res.getUsuarioRegistrado_email());
             ps.setString(8, res.getAlojamiento_ubicacion_precisa());
             ps.setString(9, res.getAlojamiento_anfitrion_email());
-            rs = ps.executeQuery();
-            rs.close();
+            
+            ps.executeUpdate();
             ps.close();
             pool.freeConnection(connection);
         }catch (SQLException e) {

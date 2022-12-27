@@ -20,12 +20,10 @@ import java.util.ArrayList;
 public class PreciosDB {
     
     // actualizamos los precios en la base de datos
-    public static void modificaPrecios(Precio p, String coordenadas) {
+    public static void insertaPrecios(Precio p, String coordenadas) {
         Conexion pool = Conexion.getInstance();
         Connection connection = pool.getConnection();
         PreparedStatement ps = null;
-        ResultSet rs = null;
-        //String query = "UPDATE PRECIO P SET PRECIONOCHE=?, PRECIOFINDESEMANA=?, PRECIOSEMANA=?, PRECIOMES=?, FECHAINICIO=?, FECHAFIN=? WHERE P.ALOJMAIENTO_UBICACIONPRECISA LIKE ?;";
         String query = "INSERT INTO PRECIO (PRECIONOCHE, PRECIOFINDESEMANA, PRECIOSEMANA, PRECIOMES, FECHAINICIO, FECHAFIN, ALOJAMIENTO_UBICACIONPRECISA) "
                 + "VALUES(?, ?, ?, ?, ?, ?, ?);";
 
@@ -43,9 +41,8 @@ public class PreciosDB {
             
             ps.setString(7, coordenadas);
             
-            rs = ps.executeQuery();
-            boolean res = rs.next();
-            rs.close();
+            
+            ps.executeUpdate();
             ps.close();
             pool.freeConnection(connection);
             
@@ -63,7 +60,7 @@ public class PreciosDB {
         ResultSet rs = null;
         //buscar imagenes de los alojamientos de la lista
       
-        String query = "SELECT precioNoche, precioFindeSemana, precioSemana, precioMes, MAX(fechaInicio) as fechaInicio, fechaFin "
+        String query = "SELECT precioNoche, precioFindeSemana, precioSemana, precioMes, MAX(fechaInicio) as fechaInicio, fechaFin, Alojamiento_ubicacionPrecisa "
                 + "FROM PRECIO p JOIN ALOJAMIENTO a "
                 + "WHERE p.`Alojamiento_ubicacionPrecisa` = a.`ubicacionPrecisa` AND p.`Alojamiento_ubicacionPrecisa` LIKE ?;";
         
@@ -77,14 +74,15 @@ public class PreciosDB {
                 ps.setString(1, alojamientos.get(i).getUbicacionPrecisaGPS());
                 rs = ps.executeQuery();
                 while (rs.next()) {
-                p = new Precio();
-                p.setPrecioNoche(rs.getFloat("precioNoche"));
-                p.setPrecioFinDeSemana(rs.getFloat("precioFindeSemana"));
-                p.setPrecioSemana(rs.getFloat("precioSemana"));
-                p.setPrecioMes(rs.getFloat("precioMes"));
-                p.setFechaIncio(rs.getDate("fechaInicio"));
-                p.setFechaFin(rs.getDate("fechaFin"));
-                precios.add(p);
+                    p = new Precio();
+                    p.setPrecioNoche(rs.getFloat("precioNoche"));
+                    p.setPrecioFinDeSemana(rs.getFloat("precioFindeSemana"));
+                    p.setPrecioSemana(rs.getFloat("precioSemana"));
+                    p.setPrecioMes(rs.getFloat("precioMes"));
+                    p.setFechaIncio(rs.getDate("fechaInicio"));
+                    p.setFechaFin(rs.getDate("fechaFin"));
+                    p.setAlojamiento_ubicacion_precisa(rs.getString("Alojamiento_ubicacionPrecisa"));
+                    precios.add(p);
                 }
             }
             //cerramos
@@ -125,6 +123,7 @@ public class PreciosDB {
                 p.setPrecioMes(rs.getFloat("precioMes"));
                 p.setFechaIncio(rs.getDate("fechaInicio"));
                 p.setFechaFin(rs.getDate("fechaFin"));
+                p.setAlojamiento_ubicacion_precisa(rs.getString("Alojamiento_ubicacionPrecisa"));
             }
             //cerramos
             rs.close();
@@ -136,5 +135,5 @@ public class PreciosDB {
             return null;
         }
     }
-   
+    
 }

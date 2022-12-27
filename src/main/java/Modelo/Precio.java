@@ -17,7 +17,6 @@ public class Precio {
     private Date fechaIncio  = new Date();
     private Date fechaFin  = new Date();
     private String alojamiento_ubicacion_precisa = null;
-    private String alojamiento_anfitrion_email = "";
 
     public void setPrecioNoche(float precioNoche) {
         this.precioNoche = precioNoche;
@@ -46,12 +45,8 @@ public class Precio {
     public void setAlojamiento_ubicacion_precisa(String alojamiento_ubicacion_precisa) {
         this.alojamiento_ubicacion_precisa = alojamiento_ubicacion_precisa;
     }
-
-    public void setAlojamiento_anfitrion_email(String alojamiento_anfitrion_email) {
-        this.alojamiento_anfitrion_email = alojamiento_anfitrion_email;
-    }
     
-        public float getPrecioNoche() {
+    public float getPrecioNoche() {
         return this.precioNoche;
     }
 
@@ -77,10 +72,6 @@ public class Precio {
 
     public String getAlojamiento_ubicacion_precisa() {
         return this.alojamiento_ubicacion_precisa;
-    }
-
-    public String getAlojamiento_anfitrion_email() {
-        return this.alojamiento_anfitrion_email;
     }
 }
 

@@ -84,8 +84,9 @@ public class NuevosPreciosServlet extends HttpServlet {
                     p.setFechaFin(date2);
                     
                     coordenadas = request.getParameter("coordenadas");
+                    coordenadas = coordenadas.substring(0, coordenadas.length() - 1);
                     // modificamos en la base de datos los parametros
-                    PreciosDB.modificaPrecios(p, coordenadas);
+                    PreciosDB.insertaPrecios(p, coordenadas);
                     
                     flag = false;
                 }else{
