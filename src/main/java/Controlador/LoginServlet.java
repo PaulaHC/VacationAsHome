@@ -49,16 +49,13 @@ public class LoginServlet extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             email=request.getParameter("email");
             password=request.getParameter("password");
-            System.out.print("***************************Email: " + email);
-            System.out.print("***************************Contraseña: " + password);
             if(ClienteDB.emailExists(email)){
                 if(ClienteDB.userExists(email, password)){
                     nextStep = "/vistaCliente.jsp";
                 }else{
                     texto = "Your password is wrong";
                 }  
-            }
-            if(AnfitrionDB.emailExists(email)){
+            }else if(AnfitrionDB.emailExists(email)){
                     if(AnfitrionDB.userExists(email, password)){
                         nextStep = "/vistaAnfitrion.jsp";
                     }else{
@@ -66,7 +63,6 @@ public class LoginServlet extends HttpServlet {
                     }  
             }else{
                     texto = "You are not registered";
-                    nextStep = "/register.jsp";
             }
         }catch(Exception e){
             System.out.println(e);

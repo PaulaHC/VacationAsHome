@@ -30,7 +30,6 @@ public class AnfitrionDB {
             rs.close();
             ps.close();
             pool.freeConnection(connection);
-            
             return res;
         } catch (Exception e) {
             return false;
@@ -43,18 +42,19 @@ public class AnfitrionDB {
         Connection connection = pool.getConnection();
         PreparedStatement ps = null;
         ResultSet rs = null;
-        String query = "SELECT EMAIL, PASSWORD FROM ANFITRION "
-        + "WHERE EMAIL = ? AND PASSWORD = ?;";
-        
+        boolean res=false;
+        String query = "SELECT PASSWORD FROM ANFITRION "
+                + "WHERE EMAIL LIKE ?;";
         try {
             ps = connection.prepareStatement(query);
             ps.setString(1, emailAddress);
-            ps.setString(2, password);
             rs = ps.executeQuery();
-            boolean res = rs.next();
+            rs.next();
+            if(rs.getString("PASSWORD").equals(password))res=true;
             rs.close();
             ps.close();
             pool.freeConnection(connection);
+            System.out.println("exist..............."+res);
             return res;
         } catch (Exception e) {
             return false;

@@ -90,7 +90,8 @@
         <div class="bg-holder w-50 bg-right d-none d-lg-block" style="background-image:url(assets/img/gallery/hero-section-1.png);">
         </div>
         <!--/.bg-holder-->
-
+        <%  String email = (String) session.getAttribute("user");
+    if(email!=null) session.removeAttribute("user");%>
         <div class="container">
           <div class="row">
             <div class="col-lg-6 py-5 py-xl-5 py-xxl-7">

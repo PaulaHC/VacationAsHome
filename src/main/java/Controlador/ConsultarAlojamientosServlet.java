@@ -51,7 +51,7 @@ public class ConsultarAlojamientosServlet extends HttpServlet {
         HttpSession session = request.getSession();
         String email = (String) session.getAttribute("user");
         boolean banderaCliente = false;
-        String nextStep = "";
+        String nextStep ="/index.jsp";
         try{
             if(Datos.AnfitrionDB.emailExists(email)){
                 banderaCliente = false;
@@ -67,16 +67,20 @@ public class ConsultarAlojamientosServlet extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             provincia=request.getParameter("inputAddress1");
             municipio=request.getParameter("inputAddress2");
-            date1 = request.getParameter("inputdateOne");
-            Date d1 = dateFormat.parse(date1);
-            date2 = request.getParameter("inputDateTwo");
-            Date d2 = dateFormat.parse(date2);
-            numPersonas = Integer.parseInt(request.getParameter("inputPersonOne"));
+           
             if(banderaCliente){
+                date1 = request.getParameter("inputdateOne");
+                Date d1 = dateFormat.parse(date1);
+                date2 = request.getParameter("inputDateTwo");
+                Date d2 = dateFormat.parse(date2);
+                numPersonas = Integer.parseInt(request.getParameter("inputPersonOne"));
                 Aloj=Datos.AlojamientoDB.consulta(provincia,municipio,d1,d2,numPersonas);
             } else{
-                Aloj=Datos.AlojamientoDB.consultaAnfitrion(email,provincia,municipio);
+                if(provincia==null)Aloj=Datos.AlojamientoDB.consultaTotalAnfitrionAlojamiento(email);
+                else Aloj=Datos.AlojamientoDB.consultaAnfitrion(email,provincia,municipio);
+                System.out.println("**************************************************"+Aloj.size());
                 precios = Datos.PreciosDB.buscarPreciosAlojamientos(Aloj);
+                System.out.println("**************************************************"+precios.size());
             }
             img=Datos.ImagenDB.buscarImagenesAlojamientos(Aloj);
         }catch(Exception e){

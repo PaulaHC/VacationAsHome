@@ -64,12 +64,48 @@ public class AlojamientoDB {
       PreparedStatement ps = null;
       ResultSet rs = null;
       String query = "SELECT * FROM ALOJAMIENTO A " +
-                     "WHERE A.EMAIL LIKE ? AND A.LOCALIDAD LIKE ?;";
+                     "WHERE A.ANFITRION_EMAIL LIKE ? AND A.LOCALIDAD LIKE ?;";
       try {
         ArrayList<Alojamiento> lista = new ArrayList<>();
         ps = connection.prepareStatement(query);
         ps.setString(1, email);
         ps.setString(2, prov);
+        rs = ps.executeQuery();
+            while (rs.next()) {
+              Alojamiento alj = new Alojamiento();
+              alj.setUbicacionPrecisaGPS(rs.getString("UBICACIONPRECISA"));
+              alj.setFechaEntrada(rs.getDate("FECHAENTRADA"));
+              alj.setNombre(rs.getString("NOMBRE"));
+              alj.setMaxHuespedes(rs.getInt("MAXHUESPED"));
+              alj.setNumDormitorios(rs.getInt("NUMDORMITORIOS"));
+              alj.setNumCamas(rs.getInt("NUMCAMAS"));
+              alj.setNumBaños(rs.getInt("NUMBAÑOS"));
+              alj.setUbicacionDescrita(rs.getString("UBICACIONDESCRITA"));
+              alj.setCaracteristicas(rs.getString("CARACTERISTICAS"));
+              alj.setServicio(rs.getString("SERVICIO"));
+              alj.setLocalidad(rs.getString("LOCALIDAD"));
+              alj.setValoracionGlobal(rs.getInt("VALORACIONGLOBAL"));
+              alj.setAnfitrion_email(rs.getString("ANFITRION_EMAIL"));
+              lista.add(alj);
+            }
+            rs.close();
+            ps.close();
+            pool.freeConnection(connection);
+            return lista;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+    public static ArrayList<Alojamiento> consultaTotalAnfitrionAlojamiento(String email) {
+      Conexion pool = Conexion.getInstance();
+      Connection connection = pool.getConnection();
+      PreparedStatement ps = null;
+      ResultSet rs = null;
+      String query = "SELECT * FROM ALOJAMIENTO A WHERE A.ANFITRION_EMAIL LIKE ?;";
+      try {
+        ArrayList<Alojamiento> lista = new ArrayList<>();
+        ps = connection.prepareStatement(query);
+        ps.setString(1, email);
         rs = ps.executeQuery();
             while (rs.next()) {
               Alojamiento alj = new Alojamiento();

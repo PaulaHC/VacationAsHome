@@ -80,13 +80,13 @@
                         <div class="col-sm-6 col-md-6 col-xl-5">
                           <div class="input-group-icon">
                             <label class="form-label visually-hidden" for="inputAddress1" name="provincia">Provincia</label>
-                            <input class="form-control input-box form-voyage-control" id="inputAddress1" type="text" placeholder="Provincia" /><span class="nav-link-icon text-800 fs--1 input-box-icon"><i class="fas fa-map-marker-alt"></i></span>
+                            <input class="form-control input-box form-voyage-control" name="inputAddress1" id="inputAddress1" type="text" placeholder="Provincia" /><span class="nav-link-icon text-800 fs--1 input-box-icon"><i class="fas fa-map-marker-alt"></i></span>
                           </div>
                         </div>
                         <div class="col-sm-6 col-md-6 col-xl-5">
                           <div class="input-group-icon">
                             <label class="form-label visually-hidden" for="inputAddress2" name="municipio">Municipio</label>
-                            <input class="form-control input-box form-voyage-control" id="inputAddress2" type="text" placeholder="Municipio" /><span class="nav-link-icon text-800 fs--1 input-box-icon"><i class="fas fa-map-marker-alt"> </i></span>
+                            <input class="form-control input-box form-voyage-control" name="inputAddress2" id="inputAddress2" type="text" placeholder="Municipio" /><span class="nav-link-icon text-800 fs--1 input-box-icon"><i class="fas fa-map-marker-alt"> </i></span>
                           </div>
                         </div>
                           <!--
@@ -123,39 +123,6 @@
         </div>
       </section>
 
-
-      <!-- ============================================-->
-      <!-- <section> begin ============================-->
-      <section class="py-0 overflow-hidden">
-        <div class="container-fluid">
-          <div class="row">
-            <div class="col-lg-6 px-0"><img class="img-fluid order-md-0 mb-4 h-100 fit-cover" src="assets/img/gallery/hero-section-2.png" alt="..." /></div>
-            <div class="col-lg-6 px-0 bg-primary-gradient bg-offcanvas-right">
-              <div class="mx-6 mx-xl-8 my-8">
-                <div class="align-items-center d-block d-flex mb-5"><img class="img-fluid me-3 me-md-2 me-lg-4" src="assets/img/icons/locations.png" alt="..." />
-                  <div class="flex-1 align-items-center pt-2">
-                    <h5 class="fw-bold text-light">Visit the greatest places</h5>
-                  </div>
-                </div>
-                <div class="align-items-center d-block d-flex mb-5"><img class="img-fluid me-3 me-md-2 me-lg-4" src="assets/img/icons/schedule.png" alt="..." />
-                  <div class="flex-1 align-items-center pt-2">
-                    <h5 class="fw-bold text-light">Make your own plans.</h5>
-                  </div>
-                </div>
-                <div class="align-items-center d-block d-flex mb-5"><img class="img-fluid me-3 me-md-2 me-lg-4" src="assets/img/icons/save.png" alt="..." />
-                  <div class="flex-1 align-items-center pt-2">
-                    <h5 class="fw-bold text-light">Save 50% on your next trip</h5>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- end of .container-->
-      </section>
-      <!-- <section> close ============================-->
-      <!-- ============================================-->
-
       <section id="testimonial" name="reservas">
         <div class="container">
           <div class="row h-100">
@@ -182,12 +149,7 @@
                             if(dataList!=null){
                                 for(int i=0; i<dataList.size(); i++){
                                     Alojamiento r = dataList.get(i);
-                                    for (int j =0; j<im.size(); j++){
-                                        Imagen ig=im.get(i);
-                                        if(ig.getAlojamiento_ubicacionPrecisa() == r.getUbicacionPrecisaGPS()){
-                                            for (int x =0; x<prec.size(); x++){
-                                                Precio p=prec.get(i);
-                                                if(p.getAlojamiento_ubicacion_precisa() == r.getUbicacionPrecisaGPS()){
+                                    Imagen ig=im.get(i);
                                                     
                                                
                                         
@@ -212,7 +174,7 @@
                         <div class="col-md-6 text-white">
                             <div class="card-body ps-2">
                               <form action="NuevosPreciosServlet" method="post">
-                                <input type="hidden" name="coordenadas" value= <%=r.getUbicacionPrecisaGPS()%>></label>
+                                <input type="hidden" name="coordenadas" value= <%=r.getUbicacionPrecisaGPS()%>/>
                                 <h5 class="fw-bold text-1000 mb-4 text-truncate" ><%= r.getNombre() %></h5>
                                 <div class="input-group-icon">
                                     <label class="form-label visually-hidden" for="precioNoche" name="precioNoche" type="number">precioNoche</label> 
@@ -249,11 +211,7 @@
                             </div>
                         </div>
                       </div>
-                        <%                  }
-                                        }
-                                    }
-                                }
-                            } //cierre del primer for
+                        <% } //cierre del primer for
                         } else{ %>
                         <div class="col-lg-7 mx-auto text-center mb-6">
                             <h5 class="fw-bold fs-3 fs-lg-5 lh-sm mb-3" style="color: red" >No results found</h5>
