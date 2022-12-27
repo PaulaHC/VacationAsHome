@@ -4,9 +4,10 @@
  */
 package Controlador;
 
+import Datos.*;
 import Modelo.Imagen;
 import Modelo.Reserva;
-import static Datos.ImagenDB.buscarImagenesReserva;
+import Modelo.Precio;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -16,6 +17,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -39,27 +41,33 @@ public class DetallesReservaServlet extends HttpServlet {
         Reserva res = new Reserva();
         Imagen img= new Imagen();
         String nom="";
+        float precTotal=0;
+        Precio precio= new Precio();
         try{
+            nom= (String)request.getParameter("nombre");
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             Date d1 = dateFormat.parse(request.getParameter("fechaEntrada"));
-            System.out.println("*************************************************"+request.getParameter("fechaEntrada"));
             Date d2 = dateFormat.parse(request.getParameter("fechaSalida"));
             int numHuespedes = Integer.parseInt(request.getParameter("numHuespe"));
-            System.out.println("*************************************************"+request.getParameter("numHuespe"));
-            String est = request.getParameter("estado");
-            nom= request.getParameter("nombre");
-            System.out.println("*************************************************"+nom);
+            String est = (String)request.getParameter("estado");
             String emailAnf = request.getParameter("Alojamiento_Anfitrion_email");
             String ubprecisa = request.getParameter("Alojamiento_ubicacionPrecisa");
-            String cliente=request.getRemoteUser();
+             // recuperamos el email de la session
+            HttpSession session = request.getSession();
+            String email = (String) session.getAttribute("user");
+            
             res.setAlojamiento_anfitrion_email(emailAnf);
             res.setAlojamiento_ubicacion_precisa(ubprecisa);
             res.setEstado(est);
             res.setFechaEntrada(d1);
             res.setFechaSalida(d2);
             res.setNumHuespedes(numHuespedes);
-            res.setUsuarioRegistrado_email(cliente);
-            img=buscarImagenesReserva(ubprecisa);
+            res.setUsuarioRegistrado_email(email);
+            
+            precio=PreciosDB.precioAlojamientoReserva(ubprecisa);
+            precTotal=(d1.getDay()+d2.getDay()-1)*precio.getPrecioNoche();
+            img=ImagenDB.buscarImagenesReserva(ubprecisa);
+            
             
         }catch(Exception e){
             System.out.println(e);
@@ -72,6 +80,7 @@ public class DetallesReservaServlet extends HttpServlet {
             request.setAttribute("res", res);
             request.setAttribute("imgen", img);
             request.setAttribute("nom", nom);
+            request.setAttribute("prec", precTotal);
             // save in the session the email of the user and 
             // is save in the request object
             dispatcher.forward(request, response);

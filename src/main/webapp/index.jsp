@@ -4,6 +4,7 @@
     Author     : franc,Paula
 --%>
 
+<%@page import="Modelo.Precio"%>
 <%@page import="Modelo.Imagen"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.ArrayList"%>
@@ -153,8 +154,9 @@
                 <div class="container">
                 <div class="row">
                  <div class="col-6 col-sm-4 col-lg-6">
-            <% ArrayList<Alojamiento>  dataList= (ArrayList<Alojamiento>)request.getAttribute("Aloj");
-               ArrayList<Imagen>   im= (ArrayList<Imagen> )request.getAttribute("img");
+            <% ArrayList<Alojamiento> dataList= (ArrayList<Alojamiento>)request.getAttribute("Aloj");
+               ArrayList<Imagen> im= (ArrayList<Imagen> )request.getAttribute("img");
+               ArrayList<Precio> prec = (ArrayList<Precio> )request.getAttribute("precios");
                
                         if(dataList!=null){
                             for(int i=0; i<dataList.size(); i++){
@@ -167,7 +169,9 @@
                             <h5 ><%= r.getNombre() %></h5>
                             <span class="fw-bold text-1000 mb-4 text-truncate"><%=r.getLocalidad() %></span><span class="text-800 fs--1 me-2"><i class="fas fa-calendar"></i></span><span class="fw-bold text-1000 mb-4 text-truncate"><%=r.getValoracionGlobal() %></span>
                             <h6><%= r.getUbicacionDescrita() %></h6>
-                            <h1 class="mb-3 text-primary fw-bolder fs-4"><span>$175</span>
+                            <h1 class="mb-3 text-primary fw-bolder fs-4"><span></span>
+                             <h1 class="mb-3 text-primary fw-bolder fs-4"><span><%=""+prec.get(i).getPrecioNoche() %>$</span><span class="text-900 fs--1 fw-normal">/Por Noche</span></h1>
+
                           </div>
                         </div>
                       </div>

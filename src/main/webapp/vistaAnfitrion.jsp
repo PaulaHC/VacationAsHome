@@ -89,28 +89,6 @@
                             <input class="form-control input-box form-voyage-control" name="inputAddress2" id="inputAddress2" type="text" placeholder="Municipio" /><span class="nav-link-icon text-800 fs--1 input-box-icon"><i class="fas fa-map-marker-alt"> </i></span>
                           </div>
                         </div>
-                          <!--
-                        <div class="col-sm-6 col-md-6 col-xl-5">
-                          <div class="input-group-icon">
-                            <input class="form-control input-box form-voyage-control" id="inputdateOne" type="date" name="date1"/><span class="nav-link-icon text-800 fs--1 input-box-icon"><i class="fas fa-calendar"></i></span>
-                          </div>
-                        </div>
-                        <div class="col-sm-6 col-md-6 col-xl-5">
-                          <div class="input-group-icon">
-                            <input class="form-control input-box form-voyage-control" id="inputDateTwo" type="date" name="date2"/><span class="nav-link-icon text-800 fs--1 input-box-icon"><i class="fas fa-calendar"></i></span>
-                          </div>
-                        </div>
-                        <div class="col-sm-6 col-md-6 col-xl-5">
-                          <div class="input-group-icon">
-                            <label class="form-label visually-hidden" for="inputPersonOne" name="numPersonas">Person</label>
-                            <select class="form-select form-voyage-select input-box" id="inputPersonOne">
-                              <option selected="selected">2 Adults</option>
-                              <option>2 Adults 1 children</option>
-                              <option>2 Adults 2 children</option>
-                              
-                            </select><span class="nav-link-icon text-800 fs--1 input-box-icon"><i class="fas fa-user"> </i></span>
-                          </div>
-                        </div>-->
                         <div class="col-12 col-xl-10 col-lg-12 d-grid mt-6">
                             <button class="btn btn-secondary" type="submit" name="botonReserva" id="botonReserva" name="botonEmpezarConsulta">Consultar Alojamientos</button>
                         </div>
@@ -178,22 +156,22 @@
                                 <h5 class="fw-bold text-1000 mb-4 text-truncate" ><%= r.getNombre() %></h5>
                                 <div class="input-group-icon">
                                     <label class="form-label visually-hidden" for="precioNoche" name="precioNoche" type="number">precioNoche</label> 
-                                    <input class="form-control input-box form-voyage-control" id="precioNoche" type="text" placeholder=<%="precioNoche".concat(""+prec.get(i).getPrecioNoche()) %>/><span class="nav-link-icon text-800 fs--1 input-box-icon"></span>
+                                    <input class="form-control input-box form-voyage-control" id="precioNoche" type="text" placeholder=<%="precioNoche ".concat(""+prec.get(i).getPrecioNoche()) %>/><span class="nav-link-icon text-800 fs--1 input-box-icon"></span>
                                 </div> <div class="input-group-icon mt-2">
                                     <label class="form-label visually-hidden" for="precioFinSemana" name="precioFinSemana" type="number">precioFinSemana</label>
-                                    <input class="form-control input-box form-voyage-control" id="precioFinSemana" type="text" placeholder=<%="precioFinSemana".concat(""+prec.get(i).getPrecioFinDeSemana()) %>/><span class="nav-link-icon text-800 fs--1 input-box-icon"><i class="fas fa-map-marker-alt"></i></span>
+                                    <input class="form-control input-box form-voyage-control" id="precioFinSemana" type="text" placeholder=<%="precioFinSemana ".concat(""+prec.get(i).getPrecioFinDeSemana()) %>/><span class="nav-link-icon text-800 fs--1 input-box-icon"><i class="fas fa-map-marker-alt"></i></span>
                                 </div> <div class="input-group-icon mt-2">
                                     <label class="form-label visually-hidden" for="precioSemana" name="precioSemana" type="number">precioSemana</label>
-                                    <input class="form-control input-box form-voyage-control" id="precioSemana" type="text" placeholder=<%="precioSemana".concat(""+prec.get(i).getPrecioSemana()) %>/><span class="nav-link-icon text-800 fs--1 input-box-icon"><i class="fas fa-map-marker-alt"></i></span>
+                                    <input class="form-control input-box form-voyage-control" id="precioSemana" type="text" placeholder=<%="precioSemana ".concat(""+prec.get(i).getPrecioSemana()) %>/><span class="nav-link-icon text-800 fs--1 input-box-icon"><i class="fas fa-map-marker-alt"></i></span>
                                 </div> <div class="input-group-icon mt-2">
                                     <label class="form-label visually-hidden" for="precioMes" name="precioMes" type="number">precioMes</label>
-                                    <input class="form-control input-box form-voyage-control" id="precioMes" type="text" placeholder=<%="precioMes".concat(""+prec.get(i).getPrecioMes()) %>/><span class="nav-link-icon text-800 fs--1 input-box-icon"><i class="fas fa-map-marker-alt"></i></span>
+                                    <input class="form-control input-box form-voyage-control" id="precioMes" type="text" placeholder=<%="precioMes ".concat(""+prec.get(i).getPrecioMes()) %>/><span class="nav-link-icon text-800 fs--1 input-box-icon"><i class="fas fa-map-marker-alt"></i></span>
                                 </div><div class="input-group-icon mt-2">
                                     <label class="form-label visually-hidden" for="fechaInicio" name="fechaInicio" type="date">precioMes</label>
-                                    <input class="form-control input-box form-voyage-control" id="fechaInicio" type="date" placeholder=<%="fechaInicio".concat(""+prec.get(i).getFechaIncio()) %>/><span class="nav-link-icon text-800 fs--1 input-box-icon"><i class="fas fa-map-marker-alt"></i></span>
+                                    <input class="form-control input-box form-voyage-control" id="fechaInicio" type="date" placeholder=<%="fechaInicio ".concat(""+prec.get(i).getFechaIncio()) %>/><span class="nav-link-icon text-800 fs--1 input-box-icon"><i class="fas fa-map-marker-alt"></i></span>
                                 </div><div class="input-group-icon mt-2">
                                     <label class="form-label visually-hidden" for="fechaFin" name="fechaFin" type="date">fechaFin</label>
-                                    <input class="form-control input-box form-voyage-control" id="fechaFin" type="text" placeholder=<%="fechaFin".concat(""+prec.get(i).getFechaFin()) %>/><span class="nav-link-icon text-800 fs--1 input-box-icon"><i class="fas fa-map-marker-alt"></i></span>
+                                    <input class="form-control input-box form-voyage-control" id="fechaFin" type="text" placeholder=<%="fechaFin ".concat(""+prec.get(i).getFechaFin()) %>/><span class="nav-link-icon text-800 fs--1 input-box-icon"><i class="fas fa-map-marker-alt"></i></span>
                                 </div>
                                 <div class="mt-4 col-12 col-xl-12 col-lg-12 d-grid">
                                     <button class="btn btn-secondary" type="submit">Guardar</button>

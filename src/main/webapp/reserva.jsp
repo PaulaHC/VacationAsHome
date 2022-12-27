@@ -4,6 +4,9 @@
     Author     : franc
 --%>
 
+<%@page import="java.util.Date"%>
+<%@page import="Modelo.Precio"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="Modelo.Reserva"%>
 <%@page import="Modelo.Imagen"%>
@@ -46,7 +49,7 @@
     <!-- ===============================================-->
     <main class="main" id="top">
       <nav class="navbar navbar-expand-lg navbar-light py-3 d-block" data-navbar-on-scroll="data-navbar-on-scroll">
-        <div class="container"><a class="navbar-brand" href="index.jsp"><img class="d-inline-block" src="assets/img/gallery/logo.png" width="50" alt="logo" /><span class="fw-bold text-primary ms-2">VacationAsHome Host</span></a>
+        <div class="container"><a class="navbar-brand" href="index.jsp"><img class="d-inline-block" src="assets/img/gallery/logo.png" width="50" alt="logo" /><span class="fw-bold text-primary ms-2">VacationAsHome</span></a>
           <button class="navbar-toggler cobuttollapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
           <div class="collapse navbar-collapse border-top border-lg-0 mt-4 mt-lg-0" id="navbarSupportedContent">
             <ul class="navbar-nav mx-auto pt-2 pt-lg-0 font-base">
@@ -67,33 +70,31 @@
             <form class="row g-4 mt-5" action="ReservarServlet" metod="post">
               <% Reserva dataList= (Reserva)request.getAttribute("res");
                             Imagen im= (Imagen)request.getAttribute("imgen");
+                            float prec = (float)request.getAttribute("prec");
+                            String  nom = (String)request.getAttribute("nom");
                         if(dataList!=null){
-                            SimpleDateFormat formateador = new SimpleDateFormat("dd/MM/yyyy");
-                            // Crea un objeto Date con la fecha actual
-                            // Convierte la fecha a una cadena de texto con el formato especificado
-                            String fecha1String = formateador.format(dataList.getFechaEntrada());
-                            String fecha2String = formateador.format(dataList.getFechaSalida());
-
+                             SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+                             String date1=dateFormat.format(dataList.getFechaEntrada());
+                             String date2=dateFormat.format(dataList.getFechaSalida() );
                         %>
                               <div class="col-md-6 card card-span h-100 text-white"><img class="img-fluid h-100" src="assets/img/gallery/maldives.png" alt="..." />
                               </div>
                               <div class="col-md-6 text-white">
                                   <div class="card-body ps-2">
                                       <div class="card-body ps-0">
-                                          <h5 class="fw-bold text-1000 mb-4 text-truncate"><%=request.getAttribute("nom")%></h5>
-                                          <div class="d-flex align-items-center justify-content-start"><span class="text-800 fs--1 me-2"><i class="fas fa-map-marker-alt"></i></span><span class="text-900 me-3">Fecha de entrada: <%=fecha1String %></span><span class="text-800 fs--1 me-2"><i class="fas fa-calendar"></i></span><span class="text-900">Fecha de salida: <%=fecha2String %></span></div>
+                                          <h5 class="fw-bold text-1000 mb-4 text-truncate"><%=nom%></h5>
+                                          <div class="d-flex align-items-center justify-content-start"><span class="text-800 fs--1 me-2"><i class="fas fa-map-marker-alt"></i></span><span class="text-900 me-3">Fecha de entrada: <%=date1 %></span><span class="text-800 fs--1 me-2"><i class="fas fa-calendar"></i></span><span class="text-900">Fecha de salida: <%=date2%></span></div>
                                           <div class="d-flex align-items-center justify-content-start"><span class="text-800 fs--1 me-2"><i class="fas fa-map-marker-alt"></i></span><span class="text-900 me-3">Numero de huespedes: <%=dataList.getNumHuespedes() %></span></div>
-                                          <h1 class="mb-3 text-primary fw-bolder fs-4"><span>$175</span></h1>
-                                          <span class="text-800 fs--1 me-2"><i class="fas fa-map-marker-alt"></i></span><span class="text-900 me-3">Dividir pago</span><input name="check" type="checkbox" value=true>
+                                          <h1 class="mb-3 text-primary fw-bolder fs-4"><span><%=""+prec %>$</span></h1>
+                                          <span class="text-800 fs--1 me-2"><i class="fas fa-map-marker-alt"></i></span><span class="text-900 me-3">Dividir pago</span><input name="check" type="checkbox">
                                       </div>
                                       <div><textarea name="comentarios" style="width: 600px; height: 100px;">Comentarios</textarea></div>
-                                    <input class="form-control input-box form-voyage-control" id="ocultar" name="fechaEntrada" style="display: none;" type="text" placeholder=<%=dataList.getFechaEntrada()%> />
-                                    <input class="form-control input-box form-voyage-control" id="ocultar" name="fechaSalida" style="display: none;" type="text" placeholder=<%=dataList.getFechaSalida() %> />
-                                    <input class="form-control input-box form-voyage-control" id="ocultar" name="numHuespe" style="display: none;" type="text" placeholder=<%=dataList.getNumHuespedes() %> />
-                                    <input class="form-control input-box form-voyage-control" id="ocultar" name="estado" style="display: none;" type="text" placeholder="realizada" />
-                                    <input class="form-control input-box form-voyage-control" id="ocultar" name="Alojamiento_ubicacionPrecisa" style="display: none;" type="text" placeholder=<%=dataList.getAlojamiento_ubicacion_precisa() %> />
-                                    <input class="form-control input-box form-voyage-control" id="ocultar" name="Alojamiento_Anfitrion_email" style="display: none;" type="text" placeholder=<%=dataList.getAlojamiento_anfitrion_email() %> />
-                                    <!--<input class="form-control input-box form-voyage-control" id="ocultar" name="precio" style="display: none;" type="text" placeholder=/> -->
+                                    <input class="form-control input-box form-voyage-control"  name="fechaEntrada" type="hidden" value=<%=dataList.getFechaEntrada()%> />
+                                    <input class="form-control input-box form-voyage-control"  name="fechaSalida" type="hidden" value=<%=dataList.getFechaSalida() %> />
+                                    <input class="form-control input-box form-voyage-control"  name="numHuespe" type="hidden" value=<%=dataList.getNumHuespedes() %> />
+                                    <input class="form-control input-box form-voyage-control"  name="estado" type="hidden" value="realizada" />
+                                    <input class="form-control input-box form-voyage-control"  name="Alojamiento_ubicacionPrecisa" type="hidden" value=<%=dataList.getAlojamiento_ubicacion_precisa() %> />
+                                    <input class="form-control input-box form-voyage-control"  name="Alojamiento_Anfitrion_email" type="hidden" value=<%=dataList.getAlojamiento_anfitrion_email() %> />
                                       <div class="mt-4 col-12 col-xl-12 col-lg-12 d-grid">
                                           <button class="btn btn-secondary" type="submit">Reservar</button>
                                       </div>

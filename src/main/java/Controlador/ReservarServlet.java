@@ -36,26 +36,41 @@ public class ReservarServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         Reserva res = new Reserva();
+        boolean pago=false;
+        String nextep="/reserva.jsp";
+        String texto="";
         try{
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             Date d1 = dateFormat.parse(request.getParameter("fechaEntrada"));
             Date d2 = dateFormat.parse(request.getParameter("fechaSalida"));
             int numHuespedes = Integer.parseInt(request.getParameter("numHuespedes"));
             String est = request.getParameter("estado");
-            String pago = request.getParameter("check");
-            System.out.println("******************************"+pago);
+            String pago1 = request.getParameter("check");
+            pago = "on".equals(pago1);
+
+            System.out.println("***********************************************"+pago);
             String emailAnf = request.getParameter("Alojamiento_Anfitrion_email");
             String ubprecisa = request.getParameter("Alojamiento_ubicacionPrecisa");
             String comentarios = request.getParameter("comentarios");
             String cliente=request.getRemoteUser();
+            
             res.setAlojamiento_anfitrion_email(emailAnf);
             res.setAlojamiento_ubicacion_precisa(ubprecisa);
             res.setEstado(est);
+            res.setDividePago(pago);
             res.setFechaEntrada(d1);
             res.setFechaSalida(d2);
             res.setNumHuespedes(numHuespedes);
-            res.setComentarios(comentarios);
             res.setUsuarioRegistrado_email(cliente);
+            if(comentarios!=null){
+                res.setComentarios(comentarios);
+                nextep="/vistaCliente.jsp";
+            }
+            else {
+                texto="Empty comment";
+                nextep="/reserva.jsp";
+            }
+            
             insertarReserva(res);
         }catch(Exception e){
             System.out.println(e);
@@ -64,7 +79,8 @@ public class ReservarServlet extends HttpServlet {
         
         // una vez se pulse el boton, se captura su evento y se recraga la misma pagina
         try {
-            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/vistaCliente.jsp");
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextep);
+            request.setAttribute("textReserva", texto);
             // save in the session the email of the user and 
             // is save in the request object
             dispatcher.forward(request, response);

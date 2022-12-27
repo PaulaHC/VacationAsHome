@@ -73,15 +73,11 @@ public class ConsultarAlojamientosServlet extends HttpServlet {
                 Date d1 = dateFormat.parse(date1);
                 date2 = request.getParameter("inputDateTwo");
                 Date d2 = dateFormat.parse(date2);
-                numPersonas = Integer.parseInt(request.getParameter("inputPersonOne"));
-                Aloj=Datos.AlojamientoDB.consulta(provincia,municipio,d1,d2,numPersonas);
             } else{
                 if(provincia==null)Aloj=Datos.AlojamientoDB.consultaTotalAnfitrionAlojamiento(email);
                 else Aloj=Datos.AlojamientoDB.consultaAnfitrion(email,provincia,municipio);
-                System.out.println("**************************************************"+Aloj.size());
-                precios = Datos.PreciosDB.buscarPreciosAlojamientos(Aloj);
-                System.out.println("**************************************************"+precios.size());
             }
+            precios = Datos.PreciosDB.buscarPreciosAlojamientos(Aloj);
             img=Datos.ImagenDB.buscarImagenesAlojamientos(Aloj);
         }catch(Exception e){
             System.out.println(e);
@@ -93,12 +89,11 @@ public class ConsultarAlojamientosServlet extends HttpServlet {
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextStep);
             request.setAttribute("Aloj", Aloj);
             request.setAttribute("img", img);
+            request.setAttribute("precios", precios);
              if(banderaCliente){
                 request.setAttribute("fechaEntrada", date1);
                 request.setAttribute("fechaSalida", date2);
                 request.setAttribute("numpersonas", numPersonas);
-            }else{
-                request.setAttribute("precios", precios);
             }
             // save in the session the email of the user and 
             // is save in the request object

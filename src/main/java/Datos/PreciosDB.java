@@ -97,5 +97,44 @@ public class PreciosDB {
             return null;
         }
     }
+    
+    public static Precio precioAlojamientoReserva(String ubicacion) {
+        
+        Conexion pool = Conexion.getInstance();
+        Connection connection = pool.getConnection();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        //buscar imagenes de los alojamientos de la lista
+      
+        String query = "SELECT *"
+                + "FROM PRECIO p "
+                + "WHERE p.`Alojamiento_ubicacionPrecisa` LIKE ?;";
+        
+        //Crear las variables
+        Precio p = null;
+      
+        try {
+            ps = connection.prepareStatement(query);
+            ps.setString(1, ubicacion);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                p = new Precio();
+                p.setPrecioNoche(rs.getFloat("precioNoche"));
+                p.setPrecioFinDeSemana(rs.getFloat("precioFindeSemana"));
+                p.setPrecioSemana(rs.getFloat("precioSemana"));
+                p.setPrecioMes(rs.getFloat("precioMes"));
+                p.setFechaIncio(rs.getDate("fechaInicio"));
+                p.setFechaFin(rs.getDate("fechaFin"));
+            }
+            //cerramos
+            rs.close();
+            ps.close();
+            pool.freeConnection(connection);
+            return p;
+          
+        } catch (Exception e) {
+            return null;
+        }
+    }
    
 }

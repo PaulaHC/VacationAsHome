@@ -4,6 +4,8 @@
     Author     : franc,Paula
 --%>
 
+<%@page import="Modelo.Precio"%>
+<%@page import="Modelo.Precio"%>
 <%@page import="Modelo.Imagen"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.ArrayList"%>
@@ -152,10 +154,12 @@
                  <div class="col-6 col-sm-4 col-lg-6">
             <% ArrayList<Alojamiento>  dataList= (ArrayList<Alojamiento>)request.getAttribute("Aloj");
                ArrayList<Imagen>   im= (ArrayList<Imagen> )request.getAttribute("img");
+               ArrayList<Precio> prec = (ArrayList<Precio> )request.getAttribute("precios");
                         if(dataList!=null){
                             for(int i=0; i<dataList.size(); i++){
                                 Alojamiento r = dataList.get(i);
                                 Imagen ig=im.get(i);
+                                
                         %>
                     <div class="col-md-4 mb-3 mb-md-0 h-100">
                         <div class="card card-span h-100 text-white"><img class="img-fluid h-100" src="data:<%= ig.getImagen() %>" alt="..." />
@@ -163,16 +167,16 @@
                             <h5 ><%= r.getNombre() %></h5>
                             <span class="fw-bold text-1000 mb-4 text-truncate"><%=r.getLocalidad() %></span><span class="text-800 fs--1 me-2"><i class="fas fa-calendar"></i></span><span class="fw-bold text-1000 mb-4 text-truncate"><%=r.getValoracionGlobal() %></span>
                             <h6><%= r.getUbicacionDescrita() %></h6>
-                            <h1 class="mb-3 text-primary fw-bolder fs-4"><span>$175</span>
+                            <h1 class="mb-3 text-primary fw-bolder fs-4"><span><%=""+prec.get(i).getPrecioNoche() %>$</span><span class="text-900 fs--1 fw-normal">/Por Noche</span></h1>
                                 <form class="row g-4 mt-5" action="DetallesReservaServlet" metod="post">
-                                    <input class="form-control input-box form-voyage-control" id="ocultar" name="nombre" style="display: none;" type="text"  placeholder=<%=r.getNombre()%> />
-                                    <input class="form-control input-box form-voyage-control" id="ocultar" name="fechaEntrada" style="display: none;" type="text" placeholder=<%=request.getAttribute("fechaEntrada") %> />
-                                    <input class="form-control input-box form-voyage-control" id="ocultar" name="fechaSalida" style="display: none;" type="text" placeholder=<%=request.getAttribute("fechaSalida") %> />
-                                    <input class="form-control input-box form-voyage-control" id="ocultar" name="numHuespe" style="display: none;" type="text" placeholder=<%=request.getAttribute("numpersonas")%> />
-                                    <input class="form-control input-box form-voyage-control" id="ocultar" name="estado" style="display: none;" type="text" placeholder="realizada" />
-                                    <input class="form-control input-box form-voyage-control" id="ocultar" name="Alojamiento_ubicacionPrecisa" style="display: none;" type="text" placeholder=<%=r.getUbicacionPrecisaGPS()%> />
-                                    <input class="form-control input-box form-voyage-control" id="ocultar" name="Alojamiento_Anfitrion_email" style="display: none;" type="text" placeholder=<%=r.getAnfitrion_email()%> />
-                                    <!--<input class="form-control input-box form-voyage-control" id="ocultar" name="precio" style="display: none;" type="text" placeholder=/> -->
+                                    <input class="form-control input-box form-voyage-control" id="ocultar" name="nombre"  type="hidden"  value=<%=r.getNombre()%> />
+                                    <input class="form-control input-box form-voyage-control" id="ocultar" name="fechaEntrada"  type="hidden" value=<%=request.getAttribute("fechaEntrada") %> />
+                                    <input class="form-control input-box form-voyage-control" id="ocultar" name="fechaSalida"  type="hidden" value=<%=request.getAttribute("fechaSalida") %> />
+                                    <input class="form-control input-box form-voyage-control" id="ocultar" name="numHuespe"  type="hidden" value=<%=request.getAttribute("numpersonas")%> />
+                                    <input class="form-control input-box form-voyage-control" id="ocultar" name="estado"  type="hidden" value="realizada" />
+                                    <input class="form-control input-box form-voyage-control" id="ocultar" name="Alojamiento_ubicacionPrecisa"  type="hidden" value=<%=r.getUbicacionPrecisaGPS()%> />
+                                    <input class="form-control input-box form-voyage-control" id="ocultar" name="Alojamiento_Anfitrion_email"  type="hidden" value=<%=r.getAnfitrion_email()%> />
+                                    <input class="form-control input-box form-voyage-control" id="ocultar" name="precio"  type="hidden" value=<%=""+prec.get(i).getPrecioNoche() %>/> 
                                     <button id="reserva" class="btn btn-secondary" type="submit">Reservar</button>
                                 </form>
                           </div>

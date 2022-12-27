@@ -22,7 +22,7 @@ public class AlojamientoDB {
       PreparedStatement ps = null;
       ResultSet rs = null;
       String query = "SELECT * FROM ALOJAMIENTO A JOIN RESERVA r " +
-                     "WHERE A.MAXHUESPED>=? AND A.LOCALIDAD LIKE ? AND r.Alojamiento_ubicacionPrecisa= A.ubicacionPrecisa AND (r.`fechaEntrada`<  ? AND r.`fechaSalida`<?);";
+                     "WHERE A.MAXHUESPED>=? AND A.LOCALIDAD LIKE ? AND r.Alojamiento_ubicacionPrecisa= A.ubicacionPrecisa AND (r.fechaEntrada<  ? AND r.fechaSalida<?);";
       try {
         ArrayList<Alojamiento> lista = new ArrayList<>();
         ps = connection.prepareStatement(query);
@@ -33,22 +33,23 @@ public class AlojamientoDB {
         ps.setDate(3, sqlDate1);
         ps.setDate(4, sqlDate2);
         rs = ps.executeQuery();
+        
             while (rs.next()) {
-              Alojamiento alj = new Alojamiento();
-              alj.setUbicacionPrecisaGPS(rs.getString("UBICACIONPRECISA"));
-              alj.setFechaEntrada(rs.getDate("FECHAENTRADA"));
-              alj.setNombre(rs.getString("NOMBRE"));
-              alj.setMaxHuespedes(rs.getInt("MAXHUESPED"));
-              alj.setNumDormitorios(rs.getInt("NUMDORMITORIOS"));
-              alj.setNumCamas(rs.getInt("NUMCAMAS"));
-              alj.setNumBaños(rs.getInt("NUMBAÑOS"));
-              alj.setUbicacionDescrita(rs.getString("UBICACIONDESCRITA"));
-              alj.setCaracteristicas(rs.getString("CARACTERISTICAS"));
-              alj.setServicio(rs.getString("SERVICIO"));
-              alj.setLocalidad(rs.getString("LOCALIDAD"));
-              alj.setValoracionGlobal(rs.getInt("VALORACIONGLOBAL"));
-              alj.setAnfitrion_email(rs.getString("ANFITRION_EMAIL"));
-              lista.add(alj);
+                Alojamiento alj = new Alojamiento();
+                alj.setUbicacionPrecisaGPS(rs.getString("UBICACIONPRECISA"));
+                alj.setFechaEntrada(rs.getDate("FECHAENTRADA"));
+                alj.setNombre(rs.getString("NOMBRE"));
+                alj.setMaxHuespedes(rs.getInt("MAXHUESPED"));
+                alj.setNumDormitorios(rs.getInt("NUMDORMITORIOS"));
+                alj.setNumCamas(rs.getInt("NUMCAMAS"));
+                alj.setNumBaños(rs.getInt("NUMBANOS"));
+                alj.setUbicacionDescrita(rs.getString("UBICACIONDESCRITA"));
+                alj.setCaracteristicas(rs.getString("CARACTERISTICAS"));
+                alj.setServicio(rs.getString("SERVICIO"));
+                alj.setLocalidad(rs.getString("LOCALIDAD"));
+                alj.setValoracionGlobal(rs.getInt("VALORACIONGLOBAL"));
+                alj.setAnfitrion_email(rs.getString("ANFITRION_EMAIL"));
+                lista.add(0, alj);
             }
             rs.close();
             ps.close();
@@ -58,6 +59,7 @@ public class AlojamientoDB {
             return null;
         }
     }
+    
     public static ArrayList<Alojamiento> consultaAnfitrion(String email, String prov, String muni) {
       Conexion pool = Conexion.getInstance();
       Connection connection = pool.getConnection();
@@ -79,7 +81,7 @@ public class AlojamientoDB {
               alj.setMaxHuespedes(rs.getInt("MAXHUESPED"));
               alj.setNumDormitorios(rs.getInt("NUMDORMITORIOS"));
               alj.setNumCamas(rs.getInt("NUMCAMAS"));
-              alj.setNumBaños(rs.getInt("NUMBAÑOS"));
+              alj.setNumBaños(rs.getInt("NUMBANOS"));
               alj.setUbicacionDescrita(rs.getString("UBICACIONDESCRITA"));
               alj.setCaracteristicas(rs.getString("CARACTERISTICAS"));
               alj.setServicio(rs.getString("SERVICIO"));
@@ -96,6 +98,7 @@ public class AlojamientoDB {
             return null;
         }
     }
+    
     public static ArrayList<Alojamiento> consultaTotalAnfitrionAlojamiento(String email) {
       Conexion pool = Conexion.getInstance();
       Connection connection = pool.getConnection();
@@ -115,7 +118,7 @@ public class AlojamientoDB {
               alj.setMaxHuespedes(rs.getInt("MAXHUESPED"));
               alj.setNumDormitorios(rs.getInt("NUMDORMITORIOS"));
               alj.setNumCamas(rs.getInt("NUMCAMAS"));
-              alj.setNumBaños(rs.getInt("NUMBAÑOS"));
+              alj.setNumBaños(rs.getInt("NUMBANOS"));
               alj.setUbicacionDescrita(rs.getString("UBICACIONDESCRITA"));
               alj.setCaracteristicas(rs.getString("CARACTERISTICAS"));
               alj.setServicio(rs.getString("SERVICIO"));
