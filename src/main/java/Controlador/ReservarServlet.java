@@ -4,8 +4,12 @@
  */
 package Controlador;
 
+import Datos.ImagenDB;
+import Datos.PreciosDB;
 import Modelo.Reserva;
 import static Datos.ReservaBD.insertarReserva;
+import Modelo.Imagen;
+import Modelo.Precio;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -37,6 +41,10 @@ public class ReservarServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         Reserva res = new Reserva();
+        Imagen img= new Imagen();
+        String nom="";
+        float precTotal=0;
+        Precio precio= new Precio();
         String nextep="/reserva.jsp";
         String texto="";
         String comentarios="";
@@ -65,12 +73,16 @@ public class ReservarServlet extends HttpServlet {
             res.setFechaSalida(d2);
             res.setNumHuespedes(numHuespedes);
             res.setUsuarioRegistrado_email(cliente);
+            
             if(!"Comentarios".equals(comentarios)){
                 res.setComentarios(comentarios);
-                //insertarReserva(res);
+                insertarReserva(res);
                 nextep="/vistaCliente.jsp";
             }
             else {
+                precio=PreciosDB.precioAlojamientoReserva(ubprecisa);
+                precTotal=(d1.getDay()+d2.getDay()-1)*precio.getPrecioNoche();
+                img=ImagenDB.buscarImagenesReserva(ubprecisa);
                 texto="Empty comment";
                 nextep="/reserva.jsp";
             }
@@ -83,6 +95,10 @@ public class ReservarServlet extends HttpServlet {
         try {
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextep);
             request.setAttribute("textReserva", texto);
+            request.setAttribute("res", res);
+            request.setAttribute("imgen", img);
+            request.setAttribute("nom", nom);
+            request.setAttribute("prec", precTotal);
             // save in the session the email of the user and 
             // is save in the request object
             dispatcher.forward(request, response);

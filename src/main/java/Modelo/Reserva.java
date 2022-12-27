@@ -11,7 +11,6 @@ import java.util.Date;
  * @author marta
  */
 public class Reserva {
-    private int ID = 0;
     private Date fechaEntrada = new Date();
     private Date fechaSalida = new Date();
     private int numHuespedes = 0;
@@ -21,10 +20,6 @@ public class Reserva {
     private String usuarioRegistrado_email = "";
     private String alojamiento_ubicacion_precisa = ""; //TODO
     private String alojamiento_anfitrion_email = "";
-
-    public void setID(int ID) {
-        this.ID = ID;
-    }
 
     public void setFechaEntrada(Date fechaEntrada) {
         this.fechaEntrada = fechaEntrada;
@@ -60,10 +55,6 @@ public class Reserva {
 
     public void setAlojamiento_anfitrion_email(String alojamiento_anfitrion_email) {
         this.alojamiento_anfitrion_email = alojamiento_anfitrion_email;
-    }
-
-    public int getID() {
-        return this.ID;
     }
 
     public Date getFechaEntrada() {

@@ -72,7 +72,8 @@
                             Imagen im= (Imagen)request.getAttribute("imgen");
                             float prec = (float)request.getAttribute("prec");
                             String  nom = (String)request.getAttribute("nom");
-                        if(dataList!=null){
+                            String comment = (String) request.getAttribute("textReserva");
+                        if(dataList!=null||comment.equals("Empty comment")){
                              SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
                              String date1=dateFormat.format(dataList.getFechaEntrada());
                              String date2=dateFormat.format(dataList.getFechaSalida());
@@ -85,7 +86,7 @@
                                           <h5 class="fw-bold text-1000 mb-4 text-truncate"><%=nom%></h5>
                                           <div class="d-flex align-items-center justify-content-start"><span class="text-800 fs--1 me-2"><i class="fas fa-map-marker-alt"></i></span><span class="text-900 me-3">Fecha de entrada: <%=date1 %></span><span class="text-800 fs--1 me-2"><i class="fas fa-calendar"></i></span><span class="text-900">Fecha de salida: <%=date2%></span></div>
                                           <div class="d-flex align-items-center justify-content-start"><span class="text-800 fs--1 me-2"><i class="fas fa-map-marker-alt"></i></span><span class="text-900 me-3">Numero de huespedes: <%=dataList.getNumHuespedes() %></span></div>
-                                          <h1 class="mb-3 text-primary fw-bolder fs-4"><span><%=""+prec %>$</span></h1>
+                                          <h1 class="mb-3 text-primary fw-bolder fs-4"><span><%=prec%>$</span></h1>
                                           <span class="text-800 fs--1 me-2"><i class="fas fa-map-marker-alt"></i></span><span class="text-900 me-3">Dividir pago</span><input name="check" type="checkbox" value='true'>
                                       </div>
                                       <div><textarea name="comentarios" style="width: 600px; height: 100px;">Comentarios</textarea></div>
@@ -100,7 +101,11 @@
                                       </div>
                                   </div>
                               </div>
-                <%}else{}%>
+                <%} 
+                
+                if(comment!=null){ %>
+                    <p class="fw-bold fs-3 fs-lg-5 lh-sm mb-3" style="color: red" ><%=comment %></p>
+                <% } %>
           </form>
       
       <!-- ============================================-->
