@@ -29,7 +29,7 @@ public class ImagenDB {
         
         //Crear las variables
         ArrayList <Imagen> imagenes = new ArrayList();
-        Imagen im = null;
+        Imagen im = new Imagen();
       
         try {
             ps = connection.prepareStatement(query);
@@ -37,10 +37,10 @@ public class ImagenDB {
                 ps.setString(1, alojamientos.get(i).getUbicacionPrecisaGPS());
                 rs = ps.executeQuery();
                 while (rs.next()) {
-                im = new Imagen();
-                im.setEtiqueta(rs.getString("etiqueta"));
-                im.setImagen(rs.getBlob("imagen"));
-                imagenes.add(im);
+                    im = new Imagen();
+                    im.setEtiqueta(rs.getString("etiqueta"));
+                    im.setImagen(rs.getString("imagen"));
+                    imagenes.add(im);
                 }
             }
             //cerramos
@@ -64,7 +64,7 @@ public class ImagenDB {
         String query = "SELECT * FROM IMAGEN i JOIN ALOJAMIENTO a WHERE i.`Alojamiento_ubicacionPrecisa` = a.`ubicacionPrecisa` AND i.`Alojamiento_ubicacionPrecisa` LIKE ?;";
         
         //Crear las variables
-        Imagen imagen = null;
+        Imagen imagen = new Imagen();
       
         try {
             ps = connection.prepareStatement(query);
@@ -72,7 +72,7 @@ public class ImagenDB {
             rs = ps.executeQuery();
             while(rs.next()){
                 imagen.setEtiqueta(rs.getString("etiqueta"));
-                imagen.setImagen(rs.getBlob("imagen"));
+                imagen.setImagen(rs.getString("imagen"));
                 imagen.setAlojamiento_ubicacionPrecisa(rs.getString("Alojamiento_ubicacionPrecisa"));
             }
             //cerramos

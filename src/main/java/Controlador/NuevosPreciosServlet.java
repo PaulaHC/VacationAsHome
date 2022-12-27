@@ -6,10 +6,8 @@
 package Controlador;
 
 import Datos.PreciosDB;
-import Modelo.Alojamiento;
 import Modelo.Precio;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -56,6 +54,10 @@ public class NuevosPreciosServlet extends HttpServlet {
         Date date1 = new Date();
         Date date2 = new Date();
         
+        ArrayList Aloj= new  ArrayList<> ();
+        ArrayList img = new  ArrayList<> ();
+        ArrayList precios = new  ArrayList<> ();
+        
         // bandera en caso de meter mal los datos
         boolean flag = false;
         
@@ -95,6 +97,12 @@ public class NuevosPreciosServlet extends HttpServlet {
             }else{
                 flag=true;
             }
+            
+            if(flag){
+                Aloj=Datos.AlojamientoDB.consultaAnfitrion(email,request.getParameter("localidad"), "");
+                precios = Datos.PreciosDB.buscarPreciosAlojamientos(Aloj);
+                img=Datos.ImagenDB.buscarImagenesAlojamientos(Aloj);
+            }
            
         }catch(NumberFormatException | ParseException e){
             System.out.println(e);
@@ -102,7 +110,12 @@ public class NuevosPreciosServlet extends HttpServlet {
         
         try {
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/vistaAnfitrion.jsp");
-            if(flag) request.setAttribute("correcto", "mal");
+            if(flag){
+                request.setAttribute("correcto", "mal");
+                request.setAttribute("Aloj", Aloj);
+                request.setAttribute("img", img);
+                request.setAttribute("precios", precios);
+            }
             dispatcher.forward(request, response);
         } catch (IOException | ServletException e) {
             System.out.println(e);

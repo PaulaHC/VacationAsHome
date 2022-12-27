@@ -13,10 +13,13 @@ and open the template in the editor.
     width : 20px;
 }
 
-#caracteristicasAlojamiento{
-    display: none;
+
+#InformacionAlojamiento p{
+    color: mediumseagreen;
 }
 
-#caracteristicasAlojamiento p{
-    color: mediumseagreen;
+#mostrarSiempre{
+    display: block;
+    visibility: visible;
+        
 }

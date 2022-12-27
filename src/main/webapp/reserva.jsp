@@ -69,7 +69,7 @@
       <!-- ============================================-->
             <form class="row g-4 mt-5" action="ReservarServlet" metod="post">
               <% Reserva dataList= (Reserva)request.getAttribute("res");
-                            Imagen im= (Imagen)request.getAttribute("imgen");
+                            Imagen im= (Imagen)request.getAttribute("imagen");
                             float prec = (float)request.getAttribute("prec");
                             String  nom = (String)request.getAttribute("nom");
                             String comment = (String) request.getAttribute("textReserva");
@@ -79,7 +79,7 @@
                              String date1=dateFormat.format(dataList.getFechaEntrada());
                              String date2=dateFormat.format(dataList.getFechaSalida());
                         %>
-                              <div class="col-md-6 card card-span h-100 text-white"><img class="img-fluid h-100" src="assets/img/gallery/maldives.png" alt="..." />
+                              <div class="mb-3 px-7 col-md-6 card card-span h-100 text-white"><img class="img-fluid h-100" src=<%= im.getImagen()%> alt=<%= im.getEtiqueta()%> />
                               </div>
                               <div class="col-md-6 text-white">
                                   <div class="card-body ps-2">

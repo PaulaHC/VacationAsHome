@@ -104,8 +104,6 @@
       <section id="testimonial" name="reservas">
         <div class="container">
           <div class="row h-100">
-         
-        
             <div class="col-lg-10 mx-auto text-center mb-6">
               <h5 class="fw-bold fs-3 fs-lg-5 lh-sm mb-3" id="tituloAlojamiento" name="tituloAlojamiento">Tus Alojamientos</h5>
               <!-- <div id="order"> 
@@ -125,56 +123,60 @@
                             ArrayList<Imagen> im = (ArrayList<Imagen> )request.getAttribute("img");
                             ArrayList<Precio> prec = (ArrayList<Precio> )request.getAttribute("precios");
                             if(dataList!=null){
-                                for(int i=0; i<dataList.size(); i++){
-                                    Alojamiento r = dataList.get(i);
-                                    Imagen ig=im.get(i);
+                                if(dataList.size()==0){ %>
+                                    <h5 class="fw-bold fs-3 fs-lg-5 lh-sm mb-3" style="color: red" >No results found</h5>
+                            <%    }else 
+                                    for(int i=0; i<dataList.size(); i++){
+                                        Alojamiento r = dataList.get(i);
+                                        Imagen ig=im.get(i);
                                     
                         %>
                       <!-- Duplicar este div para cada uno de los alojaminetos dipsonibles -->
                       <div class="row col-md-12 mb-3 mb-md-0 h-100 mt-5">
-                        <div class="col-md-6 card card-span h-100 text-white justify-content-center display-1"><img class="img-fluid h-100" src="assets/img/gallery/maldives.png" alt="..." />
-
+                        <div class="col-md-6 card card-span h-100 text-white "><img class="img-fluid h-100" src="<%= ig.getImagen()%>" alt=<%= ig.getEtiqueta()%> />
                         </div>
                         <div class="col-md-6 text-white">
                             <div class="card-body ps-2">
                               <form action="NuevosPreciosServlet" method="post">
                                 <input type="hidden" name="coordenadas" value= <%=r.getUbicacionPrecisaGPS()%>/>
                                 <h5 class="fw-bold text-1000 mb-4 text-truncate" ><%= r.getNombre() %></h5>
-                                <div class="mt-3">
-                                    <label class="form-label visually-hidden" for="precioNoche" name="precioNoche" type="number">precioNoche</label> 
-                                    <input class="form-control input-box form-voyage-control" id="precioNoche" name="precioNoche" type="text" placeholder=<%=prec.get(i).getPrecioNoche() %>/><span class="nav-link-icon text-800 fs--1 input-box-icon"><i class="fas fa-map-marker-alt">precioNoche</i></span>
-                                </div> <div class="mt-3">
-                                    <label class="form-label visually-hidden" for="precioFinSemana" name="precioFinSemana" type="number">precioFinSemana</label>
-                                    <input class="form-control input-box form-voyage-control" id="precioFinSemana" name="precioFinSemana" type="text" placeholder=<%=prec.get(i).getPrecioFinDeSemana() %>/><span class="nav-link-icon text-800 fs--1 input-box-icon"><i class="fas fa-map-marker-alt">precioFinSemana</i></span>
-                                </div> <div class="mt-3">
-                                    <label class="form-label visually-hidden" for="precioSemana" name="precioSemana" type="number">precioSemana</label>
-                                    <input class="form-control input-box form-voyage-control" id="precioSemana" name="precioSemana" type="text" placeholder=<%=+prec.get(i).getPrecioSemana() %>/><span class="nav-link-icon text-800 fs--1 input-box-icon"><i class="fas fa-map-marker-alt">precioSemana</i></span>
-                                </div> <div class="mt-3">
-                                    <label class="form-label visually-hidden" for="precioMes" name="precioMes" type="number">precioMes</label>
-                                    <input class="form-control input-box form-voyage-control" id="precioMes" name="precioMes" type="text" placeholder=<%=+prec.get(i).getPrecioMes() %>/><span class="nav-link-icon text-800 fs--1 input-box-icon"><i class="fas fa-map-marker-alt">precioMes</i></span>
-                                </div><div class="mt-3">
-                                    <label class="form-label visually-hidden" for="fechaInicio" name="fechaInicio" type="date">fechaInicio</label>
-                                    <input class="form-control input-box form-voyage-control" id="fechaInicio" name="fechaInicio" type="date" placeholder=<%=prec.get(i).getFechaIncio() %>/><span class="nav-link-icon text-800 fs--1 input-box-icon"><i class="fas fa-map-marker-alt">fechaInicio</i></span>
-                                </div><div class="mt-3">
-                                    <span class="form-label visually-hidden" for="fechaFin" name="fechaFin" type="date">fechaFin</span>
-                                    <input class="form-control input-box form-voyage-control" id="fechaFin" name="fechaFin" type="date" placeholder=<%=prec.get(i).getFechaFin() %>/><span class="nav-link-icon text-800 fs--1 input-box-icon"><i class="fas fa-map-marker-alt">fechaFin</i></span>
+                                <div class="mt-2">
+                                    <label class="form-label visually-hidden" for="precioNoche" name="precioNoche" type="number">precioNoche</label> <span class="nav-link-icon text-800 fs--1 input-box-icon"><i class="fas fa-map-marker-alt">precioNoche</i></span>
+                                    <input class="form-control input-box form-voyage-control" id="precioNoche" name="precioNoche" type="text" placeholder=<%=prec.get(i).getPrecioNoche() %>/>
+                                </div> <div class="mt-2">
+                                    <label class="form-label visually-hidden" for="precioFinSemana" name="precioFinSemana" type="number">precioFinSemana</label><span class="nav-link-icon text-800 fs--1 input-box-icon"><i class="fas fa-map-marker-alt">precioFinSemana</i></span>
+                                    <input class="form-control input-box form-voyage-control" id="precioFinSemana" name="precioFinSemana" type="text" placeholder=<%=prec.get(i).getPrecioFinDeSemana() %>/>
+                                </div> <div class="mt-2">
+                                    <label class="form-label visually-hidden" for="precioSemana" name="precioSemana" type="number">precioSemana</label><span class="nav-link-icon text-800 fs--1 input-box-icon"><i class="fas fa-map-marker-alt">precioSemana</i></span>
+                                    <input class="form-control input-box form-voyage-control" id="precioSemana" name="precioSemana" type="text" placeholder=<%=+prec.get(i).getPrecioSemana() %>/>
+                                </div> <div class="mt-2">
+                                    <label class="form-label visually-hidden" for="precioMes" name="precioMes" type="number">precioMes</label><span class="nav-link-icon text-800 fs--1 input-box-icon"><i class="fas fa-map-marker-alt">precioMes</i></span>
+                                    <input class="form-control input-box form-voyage-control" id="precioMes" name="precioMes" type="text" placeholder=<%=+prec.get(i).getPrecioMes() %>/><span class="nav-link-icon text-800 fs--1 input-box-icon">
+                                </div><div class="mt-2">
+                                    <label class="form-label visually-hidden" for="fechaInicio" name="fechaInicio" type="date">fechaInicio</label><span class="nav-link-icon text-800 fs--1 input-box-icon"><i class="fas fa-map-marker-alt">fechaInicioPrecios</i></span>
+                                    <input class="form-control input-box form-voyage-control" id="fechaInicio" name="fechaInicio" type="date" placeholder=<%=prec.get(i).getFechaIncio() %>/>
+                                </div><div class="mt-2">
+                                    <span class="form-label visually-hidden" for="fechaFin" name="fechaFin" type="date">fechaFin</span><span class="nav-link-icon text-800 fs--1 input-box-icon"><i class="fas fa-map-marker-alt">fechaFinPrecios</i></span>
+                                    <input class="form-control input-box form-voyage-control" id="fechaFin" name="fechaFin" type="date" placeholder=<%=prec.get(i).getFechaFin() %>/>
                                 </div>
-                                <div class="mt-4 col-12 col-xl-12 col-lg-12 d-grid">
+                                <% String correcto = (String)request.getAttribute("correcto");
+                                    if(correcto!=null){  %>
+                                        <div class="mt-2">
+                                        <p class="fw-bold fs-1 fs-lg-3 lh-sm mb-3 " style="color:blue" >Datos Mal Introducidos.</p>
+                                        </div>
+                                <%  } %>
+                                <div class="mt-3 col-12 col-xl-12 col-lg-12 d-grid">
                                     <button class="btn btn-secondary" type="submit">Guardar</button>
                                 </div>
-                                
-                                    <% String correcto = (String)request.getAttribute("correcto");
-                                    if(correcto!=null){  %>
-                                        <p class="fw-bold fs-3 fs-lg-5 lh-sm mb-3" style="color: red" >Has introducido algun precio Mal.</p>
-                                        <p class="fs-3 fs-lg-5 lh-sm mb-3" style="color: red" >Recuerda: Noche < Finde < Semana < Mes </p>
-                                <%  } %>
-                                
+                                    <input class="form-control input-box form-voyage-control" id="ocultar" name="localidad"  type="hidden" value=<%=r.getLocalidad() %> /> 
                               </form>
                             </div>
                         </div>
+                                    
                       </div>
+                                    
                         <% } //cierre del primer for
-                        } %>
+                        }%>
                         
                     </div>
                   </div>

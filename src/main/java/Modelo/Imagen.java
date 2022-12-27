@@ -4,8 +4,6 @@
  */
 package Modelo;
 
-import java.awt.Image;
-import java.sql.Blob;
 
 /**
  *
@@ -13,7 +11,7 @@ import java.sql.Blob;
  */
 public class Imagen {
    private String etiqueta = "";
-   private Blob imagen;
+   private String imagen;
    private String alojamiento_ubicacionPrecisa = null;
    private String alojamiento_anfitrion_email = "";
 
@@ -21,7 +19,7 @@ public class Imagen {
         this.etiqueta = etiqueta;
     }
 
-    public void setImagen(Blob imagen) {
+    public void setImagen(String imagen) {
         this.imagen = imagen;
     }
 
@@ -37,7 +35,7 @@ public class Imagen {
         return this.etiqueta;
     }
 
-    public Blob getImagen() {
+    public String getImagen() {
         return this.imagen;
     }
 

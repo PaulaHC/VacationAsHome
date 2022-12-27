@@ -89,7 +89,6 @@
                         </div>
                         
                         <% String texto = (String)request.getAttribute("showText"); 
-                        System.out.print("texto: " + texto);
                             if(texto!=null){%>
                                   <br><h2 class="display-3 fw-normal"><%= texto%></h2>
                             <%}else{%>

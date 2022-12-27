@@ -96,7 +96,7 @@ public class ReservarServlet extends HttpServlet {
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextep);
             request.setAttribute("textReserva", texto);
             request.setAttribute("res", res);
-            request.setAttribute("imgen", img);
+            request.setAttribute("imagen", img);
             request.setAttribute("nom", nom);
             request.setAttribute("prec", precTotal);
             // save in the session the email of the user and 

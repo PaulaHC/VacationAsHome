@@ -43,6 +43,7 @@ public class DetallesReservaServlet extends HttpServlet {
         String nom="";
         float precTotal=0;
         Precio precio= new Precio();
+        
         try{
             nom= (String)request.getParameter("nombre");
             nom=nom.replaceAll("-", " ");
@@ -65,9 +66,12 @@ public class DetallesReservaServlet extends HttpServlet {
             res.setNumHuespedes(numHuespedes);
             res.setUsuarioRegistrado_email(email);
             
+            
             precio=PreciosDB.precioAlojamientoReserva(ubprecisa);
             precTotal=(d1.getDay()+d2.getDay()-1)*precio.getPrecioNoche();
             img=ImagenDB.buscarImagenesReserva(ubprecisa);
+            
+            System.out.println(img.getImagen());
             
             
         }catch(Exception e){
@@ -79,7 +83,7 @@ public class DetallesReservaServlet extends HttpServlet {
         try {
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/reserva.jsp");
             request.setAttribute("res", res);
-            request.setAttribute("imgen", img);
+            request.setAttribute("imagen", img);
             request.setAttribute("nom", nom);
             request.setAttribute("prec", precTotal);
             // save in the session the email of the user and 
