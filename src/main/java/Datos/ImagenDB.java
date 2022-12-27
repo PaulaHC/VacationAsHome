@@ -17,7 +17,7 @@ import java.sql.ResultSet;
  */
 public class ImagenDB {
   //Buscamos las imagenes de un grupo de alojamientos
-    public static ArrayList <Imagen> buscarImagenesAlojamientos(ArrayList <Alojamiento> alojamientos) {
+   public static ArrayList <Imagen> buscarImagenesAlojamientos(ArrayList <Alojamiento> alojamientos) {
         
         Conexion pool = Conexion.getInstance();
         Connection connection = pool.getConnection();
@@ -85,4 +85,6 @@ public class ImagenDB {
             return null;
         }
     }
+    
+
 }

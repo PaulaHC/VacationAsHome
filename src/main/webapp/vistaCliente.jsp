@@ -167,6 +167,7 @@
                         %>
                     <div class="col-md-4 mb-3 mb-md-0 h-100">
                         <div class="card card-span h-100 text-white"><img class="img-fluid h-100" src="data:<%= ig.getImagen() %>" alt="..." />
+                            <div class="card-img-overlay ps-0"><span class="badge bg-secondary ms-3 me-1 p-2"><a class="fas fa-clock me-1" href="#Informacion">infor</a></span></div>
                             <div class="card-body ps-0">
                             <h5 ><%= r.getNombre() %></h5>
                             <span class="fw-bold text-1000 mb-4 text-truncate"><%=r.getLocalidad() %></span><span class="text-800 fs--1 me-2"><i class="fas fa-calendar"></i></span><span class="fw-bold text-1000 mb-4 text-truncate"><%=r.getValoracionGlobal() %></span>
@@ -186,6 +187,21 @@
                           </div>
                         </div>
                       </div>
+                      <div id="Informacion">
+                           <h5>Destalles:</h5>
+                           <h6 ><%= r.getNombre() %></h6>
+                           <p>Localidad: <%= r.getLocalidad() %></p>
+                           <p>Valoracion global: <%= r.getValoracionGlobal() %></p>
+                           <p>Maximo de huespedes: <%= r.getMaxHuespedes() %></p>
+                           <p>Aseos: <%= r.getNumBaños() %>  Camas: <%= r.getNumCamas() %>  Dormitorios: <%= r.getNumDormitorios() %>  </p>
+                           <p><%= r.getUbicacionDescrita() %></p>
+                           <h6>Características:</h6>
+                           <p><%= r.getCaracteristicas() %></p>
+                           <h6>Servicios:</h6>
+                           <p><%= r.getServicio() %></p>
+                           <p>Contacto: <%= r.getAnfitrion_email() %></p>
+                           
+                     </div>
                     <%} // cierre del for
                    }else{ %>
                            <h5 class="fw-bold fs-3 fs-lg-5 lh-sm mb-3" style="color: red" >No results found</h5>

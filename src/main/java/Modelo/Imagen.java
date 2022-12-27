@@ -4,6 +4,7 @@
  */
 package Modelo;
 
+import java.awt.Image;
 import java.sql.Blob;
 
 /**

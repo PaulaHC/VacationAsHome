@@ -133,17 +133,7 @@
                       <!-- Duplicar este div para cada uno de los alojaminetos dipsonibles -->
                       <div class="row col-md-12 mb-3 mb-md-0 h-100 mt-5">
                         <div class="col-md-6 card card-span h-100 text-white justify-content-center display-1"><img class="img-fluid h-100" src="assets/img/gallery/maldives.png" alt="..." />
-                            <!--<div class="card-img-overlay ps-0">
-                                <span class="badge bg-secondary ms-3 me-1 p-2"><a href="reservarCliente.jsp">Reservar</a></span>
-                                <span class="badge bg-secondary p-2"><a href="#!">Mas Info</a></span>
-                            </div>
 
-                          <div class="card-body ps-0">
-                            <h5 class="fw-bold text-1000 mb-4 text-truncate">Mermaid Beach Resort: The most joyful way to spend your holiday</h5>
-                            <div class="d-flex align-items-center justify-content-start"><span class="text-800 fs--1 me-2"><i class="fas fa-map-marker-alt"></i></span><span class="text-900 me-3">Maldives</span><span class="text-800 fs--1 me-2"><i class="fas fa-calendar"></i></span><span class="text-900">4 days</span></div>
-                            <p class="text-decoration-line-through text-900 mt-3 mb-0">$200</p>
-                            <h1 class="mb-3 text-primary fw-bolder fs-4"><span>$175</span><span class="text-900 fs--1 fw-normal">/Per person</span></h1><span class="badge bg-soft-secondary p-2"><i class="fas fa-tag text-secondary fs--1 me-1"></i><span class="text-secondary fw-normal fs-1">-15%</span></span>
-                          </div>-->
                         </div>
                         <div class="col-md-6 text-white">
                             <div class="card-body ps-2">
@@ -188,22 +178,7 @@
                         
                     </div>
                   </div>
-                  <!-- <div class="row">
-                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselTestimonials" data-bs-slide="prev"><span class="carousel-control-prev-icon" aria-hidden="true"></span><span class="visually-hidden">Previous</span></button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#carouselTestimonials" data-bs-slide="next"><span class="carousel-control-next-icon" aria-hidden="true"></span><span class="visually-hidden">Next </span></button>
-                  </div> -->
                 </div> 
-                  
-                <!-- <div class="row flex-center">
-                  <div class="col-auto position-relative z-index-2">
-                    <ol class="carousel-indicators me-xxl-7 me-xl-4 me-lg-7">
-                      <li class="active" data-bs-target="#carouselTestimonials" data-bs-slide-to="0"></li>
-                      <li data-bs-target="#carouselTestimonials" data-bs-slide-to="1"></li>
-                      <li data-bs-target="#carouselTestimonials" data-bs-slide-to="2"></li>
-                      <li data-bs-target="#carouselTestimonials" data-bs-slide-to="3"></li>
-                    </ol>
-                  </div>
-                </div> -->
               
               </div>
             </div>
