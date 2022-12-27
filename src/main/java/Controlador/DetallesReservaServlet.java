@@ -55,7 +55,6 @@ public class DetallesReservaServlet extends HttpServlet {
              // recuperamos el email de la session
             HttpSession session = request.getSession();
             String email = (String) session.getAttribute("user");
-            
             res.setAlojamiento_anfitrion_email(emailAnf);
             res.setAlojamiento_ubicacion_precisa(ubprecisa);
             res.setEstado(est);

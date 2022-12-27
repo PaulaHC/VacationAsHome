@@ -73,9 +73,9 @@
                             float prec = (float)request.getAttribute("prec");
                             String  nom = (String)request.getAttribute("nom");
                         if(dataList!=null){
-                             SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+                             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
                              String date1=dateFormat.format(dataList.getFechaEntrada());
-                             String date2=dateFormat.format(dataList.getFechaSalida() );
+                             String date2=dateFormat.format(dataList.getFechaSalida());
                         %>
                               <div class="col-md-6 card card-span h-100 text-white"><img class="img-fluid h-100" src="assets/img/gallery/maldives.png" alt="..." />
                               </div>
@@ -86,11 +86,11 @@
                                           <div class="d-flex align-items-center justify-content-start"><span class="text-800 fs--1 me-2"><i class="fas fa-map-marker-alt"></i></span><span class="text-900 me-3">Fecha de entrada: <%=date1 %></span><span class="text-800 fs--1 me-2"><i class="fas fa-calendar"></i></span><span class="text-900">Fecha de salida: <%=date2%></span></div>
                                           <div class="d-flex align-items-center justify-content-start"><span class="text-800 fs--1 me-2"><i class="fas fa-map-marker-alt"></i></span><span class="text-900 me-3">Numero de huespedes: <%=dataList.getNumHuespedes() %></span></div>
                                           <h1 class="mb-3 text-primary fw-bolder fs-4"><span><%=""+prec %>$</span></h1>
-                                          <span class="text-800 fs--1 me-2"><i class="fas fa-map-marker-alt"></i></span><span class="text-900 me-3">Dividir pago</span><input name="check" type="checkbox">
+                                          <span class="text-800 fs--1 me-2"><i class="fas fa-map-marker-alt"></i></span><span class="text-900 me-3">Dividir pago</span><input name="check" type="checkbox" value='true'>
                                       </div>
                                       <div><textarea name="comentarios" style="width: 600px; height: 100px;">Comentarios</textarea></div>
-                                    <input class="form-control input-box form-voyage-control"  name="fechaEntrada" type="hidden" value=<%=dataList.getFechaEntrada()%> />
-                                    <input class="form-control input-box form-voyage-control"  name="fechaSalida" type="hidden" value=<%=dataList.getFechaSalida() %> />
+                                    <input class="form-control input-box form-voyage-control"  name="fechaEntrada" type="hidden" value=<%=date1%> />
+                                    <input class="form-control input-box form-voyage-control"  name="fechaSalida" type="hidden" value=<%=date2 %> />
                                     <input class="form-control input-box form-voyage-control"  name="numHuespe" type="hidden" value=<%=dataList.getNumHuespedes() %> />
                                     <input class="form-control input-box form-voyage-control"  name="estado" type="hidden" value="realizada" />
                                     <input class="form-control input-box form-voyage-control"  name="Alojamiento_ubicacionPrecisa" type="hidden" value=<%=dataList.getAlojamiento_ubicacion_precisa() %> />

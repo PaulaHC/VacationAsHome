@@ -15,6 +15,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -36,42 +37,43 @@ public class ReservarServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         Reserva res = new Reserva();
-        boolean pago=false;
         String nextep="/reserva.jsp";
         String texto="";
+        String comentarios="";
         try{
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-            Date d1 = dateFormat.parse(request.getParameter("fechaEntrada"));
-            Date d2 = dateFormat.parse(request.getParameter("fechaSalida"));
-            int numHuespedes = Integer.parseInt(request.getParameter("numHuespedes"));
-            String est = request.getParameter("estado");
-            String pago1 = request.getParameter("check");
-            pago = "on".equals(pago1);
-
-            System.out.println("***********************************************"+pago);
-            String emailAnf = request.getParameter("Alojamiento_Anfitrion_email");
-            String ubprecisa = request.getParameter("Alojamiento_ubicacionPrecisa");
-            String comentarios = request.getParameter("comentarios");
-            String cliente=request.getRemoteUser();
+            Date d1 = dateFormat.parse((String)request.getParameter("fechaEntrada"));
+            Date d2 = dateFormat.parse((String)request.getParameter("fechaSalida"));
+            int numHuespedes = Integer.parseInt(request.getParameter("numHuespe"));
+            String est =(String) request.getParameter("estado");
+            String pago =(String) request.getParameter("check");
+            String emailAnf =(String) request.getParameter("Alojamiento_Anfitrion_email");
+            String ubprecisa =(String) request.getParameter("Alojamiento_ubicacionPrecisa");
+            comentarios = (String)request.getParameter("comentarios");
+            HttpSession session = request.getSession();
+            String cliente = (String) session.getAttribute("user");
             
+            if(pago!=null){
+                res.setDividePago(true);
+            }else{
+                res.setDividePago(false);
+            }
             res.setAlojamiento_anfitrion_email(emailAnf);
             res.setAlojamiento_ubicacion_precisa(ubprecisa);
             res.setEstado(est);
-            res.setDividePago(pago);
             res.setFechaEntrada(d1);
             res.setFechaSalida(d2);
             res.setNumHuespedes(numHuespedes);
             res.setUsuarioRegistrado_email(cliente);
-            if(comentarios!=null){
+            if(!"Comentarios".equals(comentarios)){
                 res.setComentarios(comentarios);
+                //insertarReserva(res);
                 nextep="/vistaCliente.jsp";
             }
             else {
                 texto="Empty comment";
                 nextep="/reserva.jsp";
             }
-            
-            insertarReserva(res);
         }catch(Exception e){
             System.out.println(e);
         }

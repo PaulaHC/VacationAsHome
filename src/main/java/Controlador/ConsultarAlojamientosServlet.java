@@ -68,12 +68,13 @@ public class ConsultarAlojamientosServlet extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             provincia=request.getParameter("inputAddress1");
             municipio=request.getParameter("inputAddress2");
-           
+            
             if(banderaCliente){
                 date1 = request.getParameter("inputdateOne");
                 Date d1 = dateFormat.parse(date1);
                 date2 = request.getParameter("inputDateTwo");
                 Date d2 = dateFormat.parse(date2);
+                numPersonas=Integer.parseInt(request.getParameter("inputPersonOne"));
                 if(d2.after(d1)){
                     Aloj=Datos.AlojamientoDB.consulta(provincia, municipio, d1, d2, numPersonas);
                 }else{
