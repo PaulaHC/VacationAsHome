@@ -128,10 +128,6 @@
                                 for(int i=0; i<dataList.size(); i++){
                                     Alojamiento r = dataList.get(i);
                                     Imagen ig=im.get(i);
-                                                    
-                                               
-                                        
-                                    
                                     
                         %>
                       <!-- Duplicar este div para cada uno de los alojaminetos dipsonibles -->

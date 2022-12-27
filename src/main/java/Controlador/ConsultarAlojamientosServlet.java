@@ -73,10 +73,11 @@ public class ConsultarAlojamientosServlet extends HttpServlet {
                 Date d1 = dateFormat.parse(date1);
                 date2 = request.getParameter("inputDateTwo");
                 Date d2 = dateFormat.parse(date2);
+                Aloj=Datos.AlojamientoDB.consulta(provincia, municipio, d1, d2, numPersonas);
             } else{
-                if(provincia==null)Aloj=Datos.AlojamientoDB.consultaTotalAnfitrionAlojamiento(email);
-                else Aloj=Datos.AlojamientoDB.consultaAnfitrion(email,provincia,municipio);
+                if(provincia!=null) Aloj=Datos.AlojamientoDB.consultaAnfitrion(email,provincia,municipio);
             }
+            
             precios = Datos.PreciosDB.buscarPreciosAlojamientos(Aloj);
             img=Datos.ImagenDB.buscarImagenesAlojamientos(Aloj);
         }catch(Exception e){

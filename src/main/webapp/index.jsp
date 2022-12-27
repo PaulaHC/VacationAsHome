@@ -157,7 +157,7 @@
             <% ArrayList<Alojamiento> dataList= (ArrayList<Alojamiento>)request.getAttribute("Aloj");
                ArrayList<Imagen> im= (ArrayList<Imagen> )request.getAttribute("img");
                ArrayList<Precio> prec = (ArrayList<Precio> )request.getAttribute("precios");
-               
+                    
                         if(dataList!=null){
                             for(int i=0; i<dataList.size(); i++){
                                 Alojamiento r = dataList.get(i);
@@ -175,7 +175,7 @@
                           </div>
                         </div>
                       </div>
-                    <%}
+                    <%} // cierre del for
                    }else{
            %>
                        <div class="col-lg-7 mx-auto text-center mb-6"></div>
@@ -183,8 +183,8 @@
                            <h5 class="fw-bold fs-3 fs-lg-5 lh-sm mb-3" style="color: red" >No results found</h5>
                        </div>
                        <%
-                   }
-                    %>
+                        }  %>
+                    
                  </div>
                  </div>
                     </div>

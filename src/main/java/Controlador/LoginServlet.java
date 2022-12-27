@@ -9,6 +9,7 @@ import Datos.AnfitrionDB;
 import Datos.ClienteDB;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -44,7 +45,9 @@ public class LoginServlet extends HttpServlet {
         String password = "";
         String texto = "";
         String nextStep = "/register.jsp";
-        
+        ArrayList Aloj= new  ArrayList<> ();
+        ArrayList img = new  ArrayList<> ();
+        ArrayList precios = new  ArrayList<> ();
         try{
             /* TODO output your page here. You may use following sample code. */
             email=request.getParameter("email");
@@ -57,6 +60,9 @@ public class LoginServlet extends HttpServlet {
                 }  
             }else if(AnfitrionDB.emailExists(email)){
                     if(AnfitrionDB.userExists(email, password)){
+                        Aloj=Datos.AlojamientoDB.consultaTotalAnfitrionAlojamiento(email);
+                        precios = Datos.PreciosDB.buscarPreciosAlojamientos(Aloj);
+                        img=Datos.ImagenDB.buscarImagenesAlojamientos(Aloj);
                         nextStep = "/vistaAnfitrion.jsp";
                     }else{
                         texto = "Your password is wrong";
@@ -71,6 +77,9 @@ public class LoginServlet extends HttpServlet {
         try {
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextStep);
             request.setAttribute("showText", texto);
+            request.setAttribute("Aloj", Aloj);
+            request.setAttribute("img", img);
+            request.setAttribute("precios", precios);
             // save in the session the email of the user and 
             // is save in the request object
             HttpSession session = request.getSession();

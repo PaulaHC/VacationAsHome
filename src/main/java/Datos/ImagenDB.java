@@ -61,7 +61,7 @@ public class ImagenDB {
         ResultSet rs = null;
         //buscar imagenes de los alojamientos de la lista
       
-        String query = "SELECT * FROM IMAGEN i JOIN ALOJAMIENTO a WHERE i.`Alojamiento_ubicacionPrecisa` = a.`ubicacionPrecisa`AND i.`Alojamiento_ubicacionPrecisa` LIKE ?;";
+        String query = "SELECT * FROM IMAGEN i JOIN ALOJAMIENTO a WHERE i.`Alojamiento_ubicacionPrecisa` = a.`ubicacionPrecisa` AND i.`Alojamiento_ubicacionPrecisa` LIKE ?;";
         
         //Crear las variables
         Imagen imagen = null;

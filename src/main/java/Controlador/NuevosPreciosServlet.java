@@ -68,7 +68,7 @@ public class NuevosPreciosServlet extends HttpServlet {
             precioSemana=Float.parseFloat(request.getParameter("precioSemana"));
             precioMes=Float.parseFloat(request.getParameter("precioMes"));
             
-            // comprobamos los datos
+            // comprobamos los precios
             if(precioNoche < precioFinSemana && precioFinSemana < precioSemana && precioSemana < precioMes){
                 fechaInicio = request.getParameter("fechaInicio");
                 date1 = dateFormat.parse(fechaInicio);
