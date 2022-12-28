@@ -22,7 +22,7 @@ public class AlojamientoDB {
       PreparedStatement ps = null;
       ResultSet rs = null;
       String query = "SELECT * FROM ALOJAMIENTO A JOIN RESERVA r " +
-                     "WHERE A.MAXHUESPED>=? AND A.LOCALIDAD LIKE ? AND r.Alojamiento_ubicacionPrecisa= A.ubicacionPrecisa AND (r.fechaEntrada<  ? AND r.fechaSalida<?);";
+                     "WHERE A.MAXHUESPED>=? AND A.LOCALIDAD LIKE ? AND r.Alojamiento_ubicacionPrecisa= A.ubicacionPrecisa AND (r.fechaEntrada<  ? AND r.fechaSalida<?) GROUP BY A.NOMBRE;";
       try {
         ArrayList<Alojamiento> lista = new ArrayList<>();
         ps = connection.prepareStatement(query);

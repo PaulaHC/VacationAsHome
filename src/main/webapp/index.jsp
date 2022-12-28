@@ -38,6 +38,7 @@
     <!--    Stylesheets-->
     <!-- ===============================================-->
     <link href="assets/css/theme.css" rel="stylesheet" />
+    <link href="assets/css/main.css" rel="stylesheet" />
 
   </head>
 
@@ -51,34 +52,34 @@
       <script>
           document.addEventListener("DOMContentLoaded", function() {
             if (localStorage.getItem("mostrarFormulario") === "false") {
-                document.getElementById("anuncios").style.display = "none";
+                document.getElementById("testimonial").style.display = "none";
                 document.getElementById("Informacion").style.display = "none";
                 document.getElementById("textmorado").style.display = "block";
                 document.getElementById("testimonial").style.display = "block";
                 // Comprobar si el formulario se debe mostrar o ocultar
             }else{
-              document.getElementById("anuncios").style.display = "block";
+              document.getElementById("testimonial").style.display = "block";
               document.getElementById("textmorado").style.display = "none";
-              document.getElementById("testimonial").style.display = "none";
+              document.getElementById("testimonial").style.display = "block";
               document.getElementById("Informacion").style.display = "none";
             }
             localStorage.setItem("mostrarFormulario", "false");
             // Mostrar formulario al hacer clic en el botón
             document.getElementById("consulta").addEventListener("click", function() {
               localStorage.setItem("mostrarFormulario", "true");
-              document.getElementById("anuncios").style.display = "block";
+              document.getElementById("testimonial").style.display = "block";
               document.getElementById("textmorado").style.display = "none";
-              document.getElementById("testimonial").style.display = "none";
+              document.getElementById("testimonial").style.display = "block";
               document.getElementById("Informacion").style.display = "none";
               // Guardar el estado del formulario en el almacenamiento local
             });
             
             document.getElementById("consultaInfo").addEventListener("click", function() {
-              document.getElementById("anuncios").style.display = "block";
+              document.getElementById("testimonial").style.display = "block";
               document.getElementById("Informacion").style.display = "block";
             });
             document.getElementById("close").addEventListener("click", function() {
-              document.getElementById("anuncios").style.display = "block";
+              document.getElementById("testimonial").style.display = "block";
               document.getElementById("Informacion").style.display = "none";
             });
           });
@@ -161,82 +162,7 @@
         </div>
       </section>
         
-        <section id="anuncios" >
-            <div class="container">
-                <div class="row h-100">
-                    <div class="col-lg-7 mx-auto text-center mb-6">
-                        <h6 class="fw-bold fs-3 fs-lg-5 lh-sm mb-3">Outcome</h6>
-                        <!--<form>
-                            <button class="btn btn-primary" type="submit" name="bottonOrdenar" value="precio">Ordenar Por Precio</button>
-                             <button class="btn btn-primary" type="submit" name="bottonOrdenar" vale="valoracion">Ordenar Por Valoracion</button>
-                          </form> -->
-                    </div>
-                    <div class="col-12">
-                        <div class="carousel slide" id="carouselTestimonials" data-bs-ride="carousel">
-                            <div class="carousel-inner">
-                                <div class="carousel-item active" data-bs-interval="10000">
-                                    <div class="row h-100 align-items-center g-2">
-                                        <% ArrayList<Alojamiento> dataList= (ArrayList<Alojamiento>)request.getAttribute("Aloj");
-                                           ArrayList<Imagen> im= (ArrayList<Imagen> )request.getAttribute("img");
-                                           ArrayList<Precio> prec = (ArrayList<Precio> )request.getAttribute("precios");
-                                           String fechasMal = (String) request.getAttribute("fechasMal");
-                                           if(fechasMal==null){
-                                                if(dataList!=null){
-                                                    if(dataList.size()==0){ %>
-                                                        <h5 class="fw-bold fs-3 fs-lg-5 lh-sm mb-3" style="color: red" >No results found</h5>
-                                                <%  }else{
-                                                        for(int i=0; i<dataList.size(); i++){
-                                                            Alojamiento r = dataList.get(i);
-                                                            Imagen ig=im.get(i);%>
-
-
-                                                            <div class="col-md-3 mb-3 mb-md-0 h-100" id="mostrarSiempre">
-                                                                <div class="card card-span h-100 text-white"><img class="img-fluid h-100" src="<%= ig.getImagen()%>" alt=<%= ig.getEtiqueta()%> />
-
-                                                                    <div id="mostrarSiempre" class="card-img-overlay ps-1"><span class="badge bg-secondary ms-3 me-1 p-2"><a id="consultaInfo" href="#Informacion">infor</a></span></div>
-                                                                    <div class="card-body ps-0">
-                                                                       <h5 ><%= r.getNombre() %></h5>
-                                                                       <span class="fw-bold text-1000 mb-4 text-truncate"><%=r.getLocalidad() %></span><span class="text-800 fs--1 me-2"><i class="fas fa-calendar"></i></span><span class="fw-bold text-1000 mb-4 text-truncate"><%=r.getValoracionGlobal() %></span>
-                                                                       <h6><%= r.getUbicacionDescrita() %></h6>
-                                                                       <h1 class="mb-3 text-primary fw-bolder fs-4"><span><%=""+prec.get(i).getPrecioNoche() %>$</span><span class="text-900 fs--1 fw-normal">/Por Noche</span></h1>
-                                                                       <h1 class="mb-3 text-primary fw-bolder fs-4"><span></span>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div id="Informacion" class="col-md-3 mb-3 mb-md-0 h-100">
-                                                                <p><b>Destalles:</b></p>
-                                                                <p><b><%= r.getNombre() %></b></p>
-                                                                <p>Localidad: <%= r.getLocalidad() %></p>
-                                                                <p>Valoracion global: <%= r.getValoracionGlobal() %></p>
-                                                                <p>Maximo de huespedes: <%= r.getMaxHuespedes() %></p>
-                                                                <p>Aseos: <%= r.getNumBaños() %>  Camas: <%= r.getNumCamas() %>  Dormitorios: <%= r.getNumDormitorios() %>  </p>
-                                                                <p><%= r.getUbicacionDescrita() %></p>
-                                                                <p><b>Características:</b></p>
-                                                                <p><%= r.getCaracteristicas() %></p>
-                                                                <p><b>Servicios:</b></p>
-                                                                <p><%= r.getServicio() %></p>
-                                                                <p>Contacto: <%= r.getAnfitrion_email() %></p>
-                                                                <div id="mostrarSiempre"><span class="badge bg-secondary ms-3 me-1 p-2"><a id="close" href="#anuncios">Close</a></span></div>
-
-                                                            </div>
-                                                      <%} // cierre del for
-                                                    }
-                                                }else{  }  
-                                            }else{ %>
-                                                   <h5 class="fw-bold fs-3 fs-lg-5 lh-sm mb-3" style="color: red" ><%=fechasMal %></h5>
-                                         <% } %>
-
-                                    </div>
-                               </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        
-        
-      <!-- ============================================-->
+        <!-- ============================================-->
       <!-- <section> begin ============================-->
       <section class="py-0 overflow-hidden" id="textmorado">
         <div class="container-fluid">
@@ -267,10 +193,87 @@
       </section>
       <!-- <section> close ============================-->
       <!-- ============================================-->
-
-      
+        
+      <% ArrayList<Alojamiento> dataList= (ArrayList<Alojamiento>)request.getAttribute("Aloj");
+        if(dataList!=null){%>
         <section id="testimonial" >
+            <div class="container">
+                <div class="row h-100">
+                    <div class="col-lg-7 mx-auto text-center mb-6">
+                        <h6 class="fw-bold fs-3 fs-lg-5 lh-sm mb-3">Outcome</h6>
+                        <form>
+                            <button class="btn btn-primary" type="button" name="bottonOrdenar" value="precio">Ordenar Por Precio</button>
+                             <button class="btn btn-primary" type="button" name="bottonOrdenar" vale="valoracion">Ordenar Por Valoracion</button>
+                          </form> 
+                    </div>
+                    <div class="col-12">
+                        <div class="carousel slide" id="carouselTestimonials" data-bs-ride="carousel">
+                            <div class="carousel-inner">
+                                <div class="carousel-item active" data-bs-interval="10000">
+                                    <div class="row h-100 align-items-center g-2">
+                                        <% dataList= (ArrayList<Alojamiento>)request.getAttribute("Aloj");
+                                           ArrayList<Imagen> im= (ArrayList<Imagen> )request.getAttribute("img");
+                                           ArrayList<Precio> prec = (ArrayList<Precio> )request.getAttribute("precios");
+                                           String fechasMal = (String) request.getAttribute("fechasMal");
+                                           if(fechasMal==null){
+                                                if(dataList!=null){
+                                                    if(dataList.size()==0){ %>
+                                                        <h5 class="fw-bold fs-3 fs-lg-5 lh-sm mb-3" style="color: red" >No results found</h5>
+                                                <%  }else{
+                                                        for(int i=0; i<dataList.size(); i++){
+                                                            Alojamiento r = dataList.get(i);
+                                                            Imagen ig=im.get(i);%>
+
+
+                                                            <div class="col-md-3 mb-3 mb-md-0 h-100" id="mostrarSiempre">
+                                                                <div class="card card-span h-100 text-white"><img class="img-fluid h-100" src="<%= ig.getImagen()%>" alt=<%= ig.getEtiqueta()%> />
+
+                                                                    <div id="mostrarSiempre" class="card-img-overlay ps-1"><span class="badge bg-secondary ms-3 me-1 p-2"><a id="consultaInfo" href="#Informacion">infor</a></span></div>
+                                                                    <div class="card-body ps-0">
+                                                                       <h5 ><%= r.getNombre() %></h5>
+                                                                       <span class="fw-bold text-1000 mb-4 text-truncate"><%=r.getLocalidad() %></span><br>
+                                                                       <span class="fw-bold text-1000 mb-4 text-truncate">Valoracion:<%=r.getValoracionGlobal() %>*</span>
+                                                                       <h6><%= r.getUbicacionDescrita() %></h6>
+                                                                       <h1 class="mb-3 text-primary fw-bolder fs-4"><span><%=""+prec.get(i).getPrecioNoche() %>$</span><span class="text-900 fs--1 fw-normal">/Por Noche</span></h1>
+                                                                       <h1 class="mb-3 text-primary fw-bolder fs-4"><span></span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div id="Informacion" class="col-md-3 mb-3 mb-md-0 h-100">
+                                                                <p><b>Destalles:</b></p>
+                                                                <p><b><%= r.getNombre() %></b></p>
+                                                                <p>Localidad: <%= r.getLocalidad() %></p>
+                                                                <p>Valoracion global: <%= r.getValoracionGlobal() %></p>
+                                                                <p>Maximo de huespedes: <%= r.getMaxHuespedes() %></p>
+                                                                <p><b>Aseos:</b> <%= r.getNumBaños() %>  <b>Camas:</b> <%= r.getNumCamas() %>  <b>Dormitorios:</b> <%= r.getNumDormitorios() %>  </p>
+                                                                <p><%= r.getUbicacionDescrita() %></p>
+                                                                <p><b>Características:</b></p>
+                                                                <p><%= r.getCaracteristicas() %></p>
+                                                                <p><b>Servicios:</b></p>
+                                                                <p><%= r.getServicio() %></p>
+                                                                <p>Contacto: <%= r.getAnfitrion_email() %></p>
+                                                                <div class="col-md-3 mb-3 mb-md-0 h-100"><span class="badge bg-secondary ms-3 me-1 p-2"><a id="close" href="#testimonial">Close</a></span></div>
+                                                            </div>
+                                                      <%} // cierre del for
+                                                    }
+                                                }else{  }  
+                                                    }else{ %>
+                                                   <h5 class="fw-bold fs-3 fs-lg-5 lh-sm mb-3" style="color: red" ><%=fechasMal %></h5>
+                                         <% } %>
+
+                                    </div>
+                               </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>                         
+        </section>
+        <% } %>
+      
+        
         <%if(dataList==null){%>
+        <section id="anuncios" >
             <div class="container">
               <div class="row h-100">
                 <div class="col-lg-7 mx-auto text-center mb-6">
@@ -323,8 +326,9 @@
                 </div>
               </div>
             </div>
-    <% } %>
-      </section> 
+        </section> 
+        <% } %>
+        
       
       
       <!-- <section> begin ============================-->

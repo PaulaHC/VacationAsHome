@@ -69,39 +69,45 @@
       <!-- ============================================-->
             <form class="row g-4 mt-5" action="ReservarServlet" metod="post">
               <% Reserva dataList= (Reserva)request.getAttribute("res");
-                Imagen im= (Imagen)request.getAttribute("imagen");
-                float prec = (float)request.getAttribute("prec");
-                String  nom = (String)request.getAttribute("nom");
-                String comment = (String) request.getAttribute("textReserva");
-                if(dataList!=null||comment.equals("Empty comment")){
-                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                    String date1=dateFormat.format(dataList.getFechaEntrada());
-                    String date2=dateFormat.format(dataList.getFechaSalida());%>
-                    <div class="mb-3 px-7 col-md-6 card card-span h-100 text-white"><img class="img-fluid h-100" src=<%= im.getImagen()%> alt=<%= im.getEtiqueta()%> /></div>
-                    <div class="col-md-6 text-white">
-                        <div class="card-body ps-2">
-                          <div class="card-body ps-0">
-                                <h5 class="fw-bold text-1000 mb-4 text-truncate"><%=nom%></h5>
-                                <div class="d-flex align-items-center justify-content-start"><span class="text-800 fs--1 me-2"><i class="fas fa-map-marker-alt"></i></span><span class="text-900 me-3">Fecha de entrada: <%=date1 %></span><span class="text-800 fs--1 me-2"><i class="fas fa-calendar"></i></span><span class="text-900">Fecha de salida: <%=date2%></span></div>
-                                <div class="d-flex align-items-center justify-content-start"><span class="text-800 fs--1 me-2"><i class="fas fa-map-marker-alt"></i></span><span class="text-900 me-3">Numero de huespedes: <%=dataList.getNumHuespedes() %></span></div>
-                                <h1 class="mb-3 text-primary fw-bolder fs-4"><span><%=prec%>$</span></h1>
-                                <span class="text-800 fs--1 me-2"><i class="fas fa-map-marker-alt"></i></span><span class="text-900 me-3">Dividir pago</span><input name="check" type="checkbox" value='true'>
-                          </div>
-                          <div><textarea name="comentarios" style="width: 600px; height: 100px;">Comentarios</textarea></div>
-                          <input class="form-control input-box form-voyage-control"  name="nombre" type="hidden" value=<%=nom.replaceAll(" ", "-")%> />
-                          <input class="form-control input-box form-voyage-control"  name="fechaEntrada" type="hidden" value=<%=date1%> />
-                          <input class="form-control input-box form-voyage-control"  name="fechaSalida" type="hidden" value=<%=date2 %> />
-                          <input class="form-control input-box form-voyage-control"  name="numHuespe" type="hidden" value=<%=dataList.getNumHuespedes() %> />
-                          <input class="form-control input-box form-voyage-control"  name="estado" type="hidden" value="realizada" />
-                          <input class="form-control input-box form-voyage-control"  name="Alojamiento_ubicacionPrecisa" type="hidden" value=<%=dataList.getAlojamiento_ubicacion_precisa() %> />
-                          <input class="form-control input-box form-voyage-control"  name="Alojamiento_Anfitrion_email" type="hidden" value=<%=dataList.getAlojamiento_anfitrion_email() %> />
-                          <%} 
-                            if(comment!=null){ %>
-                                <p class="fw-bold fs-3 fs-lg-5 lh-sm mb-3" style="color: red" ><%=comment %></p>
-                            <% } %>
-                           <div class="mt-4 col-12 col-xl-12 col-lg-12 d-grid"><button class="btn btn-secondary" type="submit">Reservar</button></div>
-                        </div>
-                    </div>
+                            Imagen im= (Imagen)request.getAttribute("imagen");
+                            float prec = (float)request.getAttribute("prec");
+                            String  nom = (String)request.getAttribute("nom");
+                            String comment = (String) request.getAttribute("textReserva");
+                            
+                        if(dataList!=null||comment.equals("Empty comment")){
+                             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                             String date1=dateFormat.format(dataList.getFechaEntrada());
+                             String date2=dateFormat.format(dataList.getFechaSalida());
+                        %>
+                              <div class="mb-3 px-7 col-md-6 card card-span h-100 text-white"><img class="img-fluid h-100" src=<%= im.getImagen()%> alt=<%= im.getEtiqueta()%> />
+                              </div>
+                              <div class="col-md-6 text-white">
+                                  <div class="card-body ps-2">
+                                      <div class="card-body ps-0">
+                                          <h5 class="fw-bold text-1000 mb-4 text-truncate"><%=nom%></h5>
+                                          <div class="d-flex align-items-center justify-content-start"><span class="text-800 fs--1 me-2"><i class="fas fa-map-marker-alt"></i></span><span class="text-900 me-3">Fecha de entrada: <%=date1 %></span><span class="text-800 fs--1 me-2"><i class="fas fa-calendar"></i></span><span class="text-900">Fecha de salida: <%=date2%></span></div>
+                                          <div class="d-flex align-items-center justify-content-start"><span class="text-800 fs--1 me-2"><i class="fas fa-map-marker-alt"></i></span><span class="text-900 me-3">Numero de huespedes: <%=dataList.getNumHuespedes() %></span></div>
+                                          <h1 class="mb-3 text-primary fw-bolder fs-4"><span><%=prec%>$</span></h1>
+                                          <span class="text-800 fs--1 me-2"><i class="fas fa-map-marker-alt"></i></span><span class="text-900 me-3">Dividir pago</span><input name="check" type="checkbox" value='true'>
+                                      </div>
+                                      <div><textarea name="comentarios" style="width: 600px; height: 100px;">Comentarios</textarea></div>
+                                    <input class="form-control input-box form-voyage-control"  name="nombre" type="hidden" value=<%=nom.replaceAll(" ", "-")%> />
+                                    <input class="form-control input-box form-voyage-control"  name="fechaEntrada" type="hidden" value=<%=date1%> />
+                                    <input class="form-control input-box form-voyage-control"  name="fechaSalida" type="hidden" value=<%=date2 %> />
+                                    <input class="form-control input-box form-voyage-control"  name="numHuespe" type="hidden" value=<%=dataList.getNumHuespedes() %> />
+                                    <input class="form-control input-box form-voyage-control"  name="estado" type="hidden" value="realizada" />
+                                    <input class="form-control input-box form-voyage-control"  name="Alojamiento_ubicacionPrecisa" type="hidden" value=<%=dataList.getAlojamiento_ubicacion_precisa() %> />
+                                    <input class="form-control input-box form-voyage-control"  name="Alojamiento_Anfitrion_email" type="hidden" value=<%=dataList.getAlojamiento_anfitrion_email() %> />
+                                    <%} 
+                                        if(comment!=null){ %>
+                                            <p class="fw-bold fs-3 fs-lg-5 lh-sm mb-3" style="color: red" ><%=comment %></p>
+                                        <% } %>
+                                      <div class="mt-4 col-12 col-xl-12 col-lg-12 d-grid">
+                                          <button class="btn btn-secondary" type="submit">Reservar</button>
+                                          
+                                      </div>
+                                  </div>
+                              </div>
                 
           </form>
       

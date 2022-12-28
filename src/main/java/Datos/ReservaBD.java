@@ -6,6 +6,7 @@ package Datos;
 import Modelo.Reserva;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 
@@ -14,7 +15,6 @@ import java.sql.SQLException;
  * @author paula
  */
 public class ReservaBD {
-    
     public static void insertarReserva(Reserva res){
         Conexion pool = Conexion.getInstance();
         Connection connection = pool.getConnection();

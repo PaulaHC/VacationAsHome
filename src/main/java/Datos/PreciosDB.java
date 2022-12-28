@@ -6,6 +6,7 @@
 package Datos;
 
 import Modelo.Alojamiento;
+import Modelo.Imagen;
 import Modelo.Precio;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -65,7 +66,7 @@ public class PreciosDB {
         
         //Crear las variables
         ArrayList <Precio> precios = new ArrayList();
-        Precio p = new Precio();
+        Precio p = null;
       
         try {
             ps = connection.prepareStatement(query);
@@ -91,7 +92,6 @@ public class PreciosDB {
             return precios;
           
         } catch (Exception e) {
-            System.err.println(e);
             return null;
         }
     }

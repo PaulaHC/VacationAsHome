@@ -13,13 +13,13 @@ and open the template in the editor.
     width : 20px;
 }
 
-
-#InformacionAlojamiento p{
-    color: mediumseagreen;
-}
-
 #mostrarSiempre{
     display: block;
     visibility: visible;
-        
+}
+
+
+
+#Informacion{
+    display:none;
 }

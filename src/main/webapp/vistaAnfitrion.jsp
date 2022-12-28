@@ -63,16 +63,16 @@
           </div>
         </div>
       </nav>
-        
       <section class="mt-7 py-0">
-        <div class="bg-holder w-50 h-50 bg-right d-none d-lg-block" style="background-image:url(assets/img/gallery/vienna.png);"></div>
+        <div class="bg-holder w-50 bg-right d-none d-lg-block" style="background-image:url(assets/img/gallery/hero-section-1.png);">
+        </div>
         <!--/.bg-holder-->
 
         <div class="container">
           <div class="row">
             <div class="col-lg-6 py-5 py-xl-5 py-xxl-7">
-              <h1 class="display-3 text-1000 fw-normal">Tour your accommodations</h1>
-              <h1 class="display-3 text-primary fw-bold">Modify your accommodations</h1>
+              <h1 class="display-3 text-1000 fw-normal">Let’s make a tour</h1>
+              <h1 class="display-3 text-primary fw-bold">Discover the beauty</h1>
               <div class="pt-5">
                   <div class="tab-content" id="nav-tabContent">
                     <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
@@ -105,13 +105,11 @@
         <div class="container">
           <div class="row h-100">
             <div class="col-lg-10 mx-auto text-center mb-6">
-              <h5 class="fw-bold fs-3 fs-lg-5 lh-sm mb-3" id="tituloAlojamiento" name="tituloAlojamiento">Tus Alojamientos</h5>
-              <!-- <div id="order"> 
-                  <form>
-                    <span class="badge bg-secondary p-2"><a href="#!"><i class="fas fa-bolt me-1">Ordenar Por Precio</i></a></span>
-                    <span class="badge bg-secondary p-2"><a href="#!"><i class="fas fa-bolt me-1">Ordenar Por Lo Que Sea</i></a></span>
-                  </form>
-              </div> -->
+                <h5 class="fw-bold fs-3 fs-lg-5 lh-sm mb-3" id="tituloAlojamiento" name="tituloAlojamiento">Tus Alojamientos</h5>
+                <form>
+                    <button class="btn btn-primary" type="button" name="bottonOrdenar" value="precio">Ordenar Por Precio</button>
+                     <button class="btn btn-primary" type="button" name="bottonOrdenar" vale="valoracion">Ordenar Por Valoracion</button>
+              </form>
             </div>
             <div class="col-12">
               <div class="carousel slide" id="carouselTestimonials" data-bs-ride="carousel">

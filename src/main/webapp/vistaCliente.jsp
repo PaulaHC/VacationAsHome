@@ -8,6 +8,7 @@
 <%@page import="Modelo.Precio"%>
 <%@page import="Modelo.Imagen"%>
 <%@page import="java.util.ArrayList"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="Modelo.Alojamiento"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -50,31 +51,31 @@
     <!--    Main Content-->
     <!-- ===============================================-->
     <main class="main" id="top">
-<script>
+      <script>
           document.addEventListener("DOMContentLoaded", function() {
             if (localStorage.getItem("mostrarFormulario") === "false") {
-                document.getElementById("anuncios").style.display = "none";
+                document.getElementById("testimonial").style.display = "block";
                 document.getElementById("Informacion").style.display = "none";
                 // Comprobar si el formulario se debe mostrar o ocultar
             }else{
-              document.getElementById("anuncios").style.display = "block";;
+              document.getElementById("testimonial").style.display = "block";;
               document.getElementById("Informacion").style.display = "none";
             }
             localStorage.setItem("mostrarFormulario", "false");
             // Mostrar formulario al hacer clic en el botón
             document.getElementById("consulta").addEventListener("click", function() {
               localStorage.setItem("mostrarFormulario", "true");
-              document.getElementById("anuncios").style.display = "block";
+              document.getElementById("testimonial").style.display = "block";
               document.getElementById("Informacion").style.display = "none";
               // Guardar el estado del formulario en el almacenamiento local
             });
             
             document.getElementById("consultaInfo").addEventListener("click", function() {
-              document.getElementById("anuncios").style.display = "block";
+              document.getElementById("testimonial").style.display = "block";
               document.getElementById("Informacion").style.display = "block";
             });
             document.getElementById("close").addEventListener("click", function() {
-              document.getElementById("anuncios").style.display = "block";
+              document.getElementById("testimonial").style.display = "block";
               document.getElementById("Informacion").style.display = "none";
             });
           });
@@ -96,9 +97,9 @@
           </div>
         </div>
       </nav>
-      
       <section class="mt-7 py-0">
-        <div class="bg-holder w-50 bg-right d-none d-lg-block" style="background-image:url(assets/img/gallery/visya.jpg);"></div>
+        <div class="bg-holder w-50 bg-right d-none d-lg-block" style="background-image:url(assets/img/gallery/visya.jpg);">
+        </div>
         <!--/.bg-holder-->
 
         <div class="container">
@@ -156,15 +157,15 @@
       </section>
       
       
-        <section id="anuncios" >
+        <section id="testimonial" >
             <div class="container">
               <div class="row h-100">
                     <div class="col-lg-7 mx-auto text-center mb-6">
                        <h6 class="fw-bold fs-3 fs-lg-5 lh-sm mb-3">Outcome</h6>
-                       <!--<form>
-                           <button class="btn btn-primary" type="submit" name="bottonOrdenar" value="precio">Ordenar Por Precio</button>
-                            <button class="btn btn-primary" type="submit" name="bottonOrdenar" vale="valoracion">Ordenar Por Valoracion</button>
-                         </form> -->
+                       <form>
+                           <button class="btn btn-primary" type="button" name="bottonOrdenar" value="precio">Ordenar Por Precio</button>
+                            <button class="btn btn-primary" type="button" name="bottonOrdenar" vale="valoracion">Ordenar Por Valoracion</button>
+                        </form>
                     </div>
                     <div class="col-12">
                         <div class="carousel slide" id="carouselTestimonials" data-bs-ride="carousel">
@@ -182,43 +183,43 @@
                                                             Imagen ig=im.get(i);
                                                             String nom=r.getNombre();
                                                             nom=nom.replaceAll(" ", "-"); %>
-                                                            <div  class="col-md-4 mb-3 mb-md-0 h-100"  id="mostrarSiempre">
-                                                                <div class="card card-span h-100 text-white"><img class="img-fluid h-100" src=<%= ig.getImagen()%> alt=<%= ig.getEtiqueta()%> />
-                                                                <div id="mostrarSiempre"><a id="consultaInfo" class="fas fa-clock me-1" href="#Informacion"><span class="badge bg-primary col-12  p-2">infor</span></a></div>
-                                                                <div class="card-body ps-0">
-                                                                <h5 ><%= r.getNombre() %></h5>
-                                                                <span class="fw-bold text-1000 mb-4 text-truncate"><%=r.getLocalidad() %></span><span class="text-800 fs--1 me-2"></span><span class="fw-bold text-1000 mb-4 text-truncate"><%=r.getValoracionGlobal() %></span>
-                                                                <h6><%= r.getUbicacionDescrita() %></h6>
-                                                                <h1 class="mb-3 text-primary fw-bolder fs-4"><span><%=""+prec.get(i).getPrecioNoche() %>$</span><span class="text-900 fs--1 fw-normal">/Por Noche</span></h1>
-                                                                <form class="row g-4 mt-5" action="DetallesReservaServlet" metod="post">
-                                                                        <input class="form-control input-box form-voyage-control" id="ocultar" name="nombre"  type="hidden"  value=<%=nom%> />
-                                                                        <input class="form-control input-box form-voyage-control" id="ocultar" name="fechaEntrada"  type="hidden" value=<%=request.getAttribute("fechaEntrada") %> />
-                                                                        <input class="form-control input-box form-voyage-control" id="ocultar" name="fechaSalida"  type="hidden" value=<%=request.getAttribute("fechaSalida") %> />
-                                                                        <input class="form-control input-box form-voyage-control" id="ocultar" name="numHuespe"  type="hidden" value=<%=request.getAttribute("numpersonas")%> />
-                                                                        <input class="form-control input-box form-voyage-control" id="ocultar" name="estado"  type="hidden" value="realizada" />
-                                                                        <input class="form-control input-box form-voyage-control" id="ocultar" name="Alojamiento_ubicacionPrecisa"  type="hidden" value=<%=r.getUbicacionPrecisaGPS()%> />
-                                                                        <input class="form-control input-box form-voyage-control" id="ocultar" name="Alojamiento_Anfitrion_email"  type="hidden" value=<%=r.getAnfitrion_email()%> />
-                                                                        <input class="form-control input-box form-voyage-control" id="ocultar" name="precio"  type="hidden" value=<%=""+prec.get(i).getPrecioNoche() %>/> 
-                                                                        <button id="reserva" class="btn btn-secondary" type="submit">Reservar</button>
-                                                                    </form>
+                                                             <div class="col-md-3 mb-3 mb-md-0 h-100" id="mostrarSiempre">
+                                                                <div class="card card-span h-100 text-white"><img class="img-fluid h-100" src="<%= ig.getImagen()%>" alt=<%= ig.getEtiqueta()%> />
+                                                                    <div id="mostrarSiempre" ><span class="badge bg-secondary col-12 p-2"><a id="consultaInfo" class="fas fa-clock me-1" href="#Informacion">infor</a></span></div>
+                                                                    <div class="card-body ps-0">
+                                                                        <h5 ><%= r.getNombre() %></h5>
+                                                                        <span class="fw-bold text-1000 mb-4 text-truncate"><%=r.getLocalidad() %></span><br>
+                                                                       <span class="fw-bold text-1000 mb-4 text-truncate">Valoracion:<%=r.getValoracionGlobal() %>*</span>
+                                                                        <h6><%= r.getUbicacionDescrita() %></h6>
+                                                                        <h1 class="mb-3 text-primary fw-bolder fs-4"><span><%=""+prec.get(i).getPrecioNoche() %>$</span><span class="text-900 fs--1 fw-normal">/Por Noche</span></h1>
+                                                                        <form class="row g-2 mt-2" action="DetallesReservaServlet" metod="post">
+                                                                            <input class="form-control input-box form-voyage-control" id="ocultar" name="nombre"  type="hidden"  value=<%=nom%> />
+                                                                            <input class="form-control input-box form-voyage-control" id="ocultar" name="fechaEntrada"  type="hidden" value=<%=request.getAttribute("fechaEntrada") %> />
+                                                                            <input class="form-control input-box form-voyage-control" id="ocultar" name="fechaSalida"  type="hidden" value=<%=request.getAttribute("fechaSalida") %> />
+                                                                            <input class="form-control input-box form-voyage-control" id="ocultar" name="numHuespe"  type="hidden" value=<%=request.getAttribute("numpersonas")%> />
+                                                                            <input class="form-control input-box form-voyage-control" id="ocultar" name="estado"  type="hidden" value="realizada" />
+                                                                            <input class="form-control input-box form-voyage-control" id="ocultar" name="Alojamiento_ubicacionPrecisa"  type="hidden" value=<%=r.getUbicacionPrecisaGPS()%> />
+                                                                            <input class="form-control input-box form-voyage-control" id="ocultar" name="Alojamiento_Anfitrion_email"  type="hidden" value=<%=r.getAnfitrion_email()%> />
+                                                                            <input class="form-control input-box form-voyage-control" id="ocultar" name="precio"  type="hidden" value=<%=""+prec.get(i).getPrecioNoche() %>/> 
+                                                                            <button id="reserva" class="btn btn-primary" type="submit">Reservar</button>
+                                                                        </form>
+                                                                    </div>
                                                                 </div>
-                                                                </div>
-                                                          </div>
+                                                            </div>
                                                           <div id="Informacion" class="col-md-3 mb-3 mb-md-0 h-100">
                                                                 <p><b>Destalles:</b></p>
                                                                 <p><b><%= r.getNombre() %></b></p>
                                                                 <p>Localidad: <%= r.getLocalidad() %></p>
                                                                 <p>Valoracion global: <%= r.getValoracionGlobal() %></p>
                                                                 <p>Maximo de huespedes: <%= r.getMaxHuespedes() %></p>
-                                                                <p>Aseos: <%= r.getNumBaños() %>  Camas: <%= r.getNumCamas() %>  Dormitorios: <%= r.getNumDormitorios() %>  </p>
+                                                                <p><b>Aseos:</b> <%= r.getNumBaños() %>  <b>Camas:</b> <%= r.getNumCamas() %>  <b>Dormitorios:</b> <%= r.getNumDormitorios() %>  </p>
                                                                 <p><%= r.getUbicacionDescrita() %></p>
                                                                 <p><b>Características:</b></p>
                                                                 <p><%= r.getCaracteristicas() %></p>
                                                                 <p><b>Servicios:</b></p>
                                                                 <p><%= r.getServicio() %></p>
                                                                 <p>Contacto: <%= r.getAnfitrion_email() %></p>
-                                                                <div id="mostrarSiempre"><span class="badge bg-secondary ms-3 me-1 p-2"><a id="close" href="#anuncios">Close</a></span></div>
-
+                                                                <div class="col-md-3 mb-3 mb-md-0 h-100"><span class="badge bg-secondary ms-3 me-1 p-2"><a id="close" href="#testimonial">Close</a></span></div>
                                                             </div>
 
                                                        <%} // cierre del for

@@ -53,8 +53,7 @@ public class ImagenDB {
             return null;
         }
     }
-   
-   public static Imagen buscarImagenesReserva(String ubicacion) {
+    public static Imagen buscarImagenesReserva(String ubicacion) {
         
         Conexion pool = Conexion.getInstance();
         Connection connection = pool.getConnection();
@@ -86,5 +85,6 @@ public class ImagenDB {
             return null;
         }
     }
+    
 
 }
