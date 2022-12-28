@@ -16,7 +16,7 @@ public class Precio {
     private float precioMes = 0;
     private Date fechaIncio  = new Date();
     private Date fechaFin  = new Date();
-    private String alojamiento_ubicacion_precisa = null;
+    private String alojamiento_ubicacion_precisa = "";
 
     public void setPrecioNoche(float precioNoche) {
         this.precioNoche = precioNoche;
