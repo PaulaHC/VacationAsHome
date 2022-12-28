@@ -7,7 +7,6 @@
 <%@page import="Modelo.Precio"%>
 <%@page import="Modelo.Imagen"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="java.util.ArrayList"%>
 <%@page import="Modelo.Alojamiento"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -51,31 +50,40 @@
     <main class="main" id="top">
       <script>
           document.addEventListener("DOMContentLoaded", function() {
-            // Comprobar si el formulario se debe mostrar o ocultar
-            if (localStorage.getItem("mostrarFormulario") === "true") {
+            if (localStorage.getItem("mostrarFormulario") === "false") {
+                document.getElementById("anuncios").style.display = "none";
+                document.getElementById("Informacion").style.display = "none";
+                document.getElementById("textmorado").style.display = "block";
+                document.getElementById("testimonial").style.display = "block";
+                // Comprobar si el formulario se debe mostrar o ocultar
+            }else{
               document.getElementById("anuncios").style.display = "block";
               document.getElementById("textmorado").style.display = "none";
               document.getElementById("testimonial").style.display = "none";
-            } else {
-              document.getElementById("anuncios").style.display = "none";
+              document.getElementById("Informacion").style.display = "none";
             }
             localStorage.setItem("mostrarFormulario", "false");
             // Mostrar formulario al hacer clic en el botón
             document.getElementById("consulta").addEventListener("click", function() {
+              localStorage.setItem("mostrarFormulario", "true");
               document.getElementById("anuncios").style.display = "block";
               document.getElementById("textmorado").style.display = "none";
               document.getElementById("testimonial").style.display = "none";
+              document.getElementById("Informacion").style.display = "none";
               // Guardar el estado del formulario en el almacenamiento local
-              localStorage.setItem("mostrarFormulario", "true");
             });
             
             document.getElementById("consultaInfo").addEventListener("click", function() {
+              document.getElementById("anuncios").style.display = "block";
               document.getElementById("Informacion").style.display = "block";
-              // Guardar el estado del formulario en el almacenamiento local
-              localStorage.setItem("mostrarFormulario", "true");
+            });
+            document.getElementById("close").addEventListener("click", function() {
+              document.getElementById("anuncios").style.display = "block";
+              document.getElementById("Informacion").style.display = "none";
             });
           });
       </script>
+      
       <nav class="navbar navbar-expand-lg navbar-light py-3 d-block" data-navbar-on-scroll="data-navbar-on-scroll">
         <div class="container"><a class="navbar-brand" href="index.jsp"><img class="d-inline-block" src="assets/img/gallery/logo.png" width="50" alt="logo" /><span class="fw-bold text-primary ms-2">VacationAsHome</span></a>
           <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
@@ -93,12 +101,12 @@
           </div>
         </div>
       </nav>
+      
       <section class="mt-7 py-0">
-        <div class="bg-holder w-50 bg-right d-none d-lg-block" style="background-image:url(assets/img/gallery/hero-section-1.png);">
-        </div>
+        <div class="bg-holder w-50 bg-right d-none d-lg-block" style="background-image:url(assets/img/gallery/hero-section-1.png);"></div>
         <!--/.bg-holder-->
         <%  String email = (String) session.getAttribute("user");
-    if(email!=null) session.removeAttribute("user");%>
+            if(email!=null) session.removeAttribute("user");%>
         <div class="container">
           <div class="row">
             <div class="col-lg-6 py-5 py-xl-5 py-xxl-7">
@@ -152,77 +160,79 @@
           </div>
         </div>
       </section>
-        <section id="testimonial" >
-        <div class="container">
-          <div class="row h-100">
-             <div class="col-lg-7 mx-auto text-center mb-6">
-                <h6 class="fw-bold fs-3 fs-lg-5 lh-sm mb-3">Outcome</h6>
-                <!--<form>
-                    <button class="btn btn-primary" type="submit" name="bottonOrdenar" value="precio">Ordenar Por Precio</button>
-                     <button class="btn btn-primary" type="submit" name="bottonOrdenar" vale="valoracion">Ordenar Por Valoracion</button>
-                  </form> -->
-             </div>
-             <div class="col-12">
-              <div class="carousel slide" id="carouselTestimonials" data-bs-ride="carousel">
-                <div class="carousel-inner">
-                  <div class="carousel-item active" data-bs-interval="10000">
-                    <div class="row h-100 align-items-center g-2">
-            <% ArrayList<Alojamiento> dataList= (ArrayList<Alojamiento>)request.getAttribute("Aloj");
-               ArrayList<Imagen> im= (ArrayList<Imagen> )request.getAttribute("img");
-               ArrayList<Precio> prec = (ArrayList<Precio> )request.getAttribute("precios");
-               String fechasMal = (String) request.getAttribute("fechasMal");
-                    if(fechasMal==null){
-                        if(dataList!=null){
-                            if(dataList.size()==0){ %>
-                                <h5 class="fw-bold fs-3 fs-lg-5 lh-sm mb-3" style="color: red" >No results found</h5>
-                        <%    }else
-                            for(int i=0; i<dataList.size(); i++){
-                                Alojamiento r = dataList.get(i);
-                                Imagen ig=im.get(i);
-                        %>
-                    
-                        
-                        <div class="col-md-3 mb-3 mb-md-0 h-100" id="mostrarSiempre">
-                        <div class="card card-span h-100 text-white"><img class="img-fluid h-100" src="<%= ig.getImagen()%>" alt=<%= ig.getEtiqueta()%> />
-                            
-                            <div id="mostrarSiempre" class="card-img-overlay ps-1"><span class="badge bg-secondary ms-3 me-1 p-2"><a id="consultaInfo" href="#Informacion">infor</a></span></div>
-                            <div class="card-body ps-0">
-                               <h5 ><%= r.getNombre() %></h5>
-                               <span class="fw-bold text-1000 mb-4 text-truncate"><%=r.getLocalidad() %></span><span class="text-800 fs--1 me-2"><i class="fas fa-calendar"></i></span><span class="fw-bold text-1000 mb-4 text-truncate"><%=r.getValoracionGlobal() %></span>
-                               <h6><%= r.getUbicacionDescrita() %></h6>
-                               <h1 class="mb-3 text-primary fw-bolder fs-4"><span></span>
-                                <h1 class="mb-3 text-primary fw-bolder fs-4"><span><%=""+prec.get(i).getPrecioNoche() %>$</span><span class="text-900 fs--1 fw-normal">/Por Noche</span></h1>
-                             </div>
+        
+        <section id="anuncios" >
+            <div class="container">
+                <div class="row h-100">
+                    <div class="col-lg-7 mx-auto text-center mb-6">
+                        <h6 class="fw-bold fs-3 fs-lg-5 lh-sm mb-3">Outcome</h6>
+                        <!--<form>
+                            <button class="btn btn-primary" type="submit" name="bottonOrdenar" value="precio">Ordenar Por Precio</button>
+                             <button class="btn btn-primary" type="submit" name="bottonOrdenar" vale="valoracion">Ordenar Por Valoracion</button>
+                          </form> -->
+                    </div>
+                    <div class="col-12">
+                        <div class="carousel slide" id="carouselTestimonials" data-bs-ride="carousel">
+                            <div class="carousel-inner">
+                                <div class="carousel-item active" data-bs-interval="10000">
+                                    <div class="row h-100 align-items-center g-2">
+                                        <% ArrayList<Alojamiento> dataList= (ArrayList<Alojamiento>)request.getAttribute("Aloj");
+                                           ArrayList<Imagen> im= (ArrayList<Imagen> )request.getAttribute("img");
+                                           ArrayList<Precio> prec = (ArrayList<Precio> )request.getAttribute("precios");
+                                           String fechasMal = (String) request.getAttribute("fechasMal");
+                                           if(fechasMal==null){
+                                                if(dataList!=null){
+                                                    if(dataList.size()==0){ %>
+                                                        <h5 class="fw-bold fs-3 fs-lg-5 lh-sm mb-3" style="color: red" >No results found</h5>
+                                                <%  }else{
+                                                        for(int i=0; i<dataList.size(); i++){
+                                                            Alojamiento r = dataList.get(i);
+                                                            Imagen ig=im.get(i);%>
+
+
+                                                            <div class="col-md-3 mb-3 mb-md-0 h-100" id="mostrarSiempre">
+                                                                <div class="card card-span h-100 text-white"><img class="img-fluid h-100" src="<%= ig.getImagen()%>" alt=<%= ig.getEtiqueta()%> />
+
+                                                                    <div id="mostrarSiempre" class="card-img-overlay ps-1"><span class="badge bg-secondary ms-3 me-1 p-2"><a id="consultaInfo" href="#Informacion">infor</a></span></div>
+                                                                    <div class="card-body ps-0">
+                                                                       <h5 ><%= r.getNombre() %></h5>
+                                                                       <span class="fw-bold text-1000 mb-4 text-truncate"><%=r.getLocalidad() %></span><span class="text-800 fs--1 me-2"><i class="fas fa-calendar"></i></span><span class="fw-bold text-1000 mb-4 text-truncate"><%=r.getValoracionGlobal() %></span>
+                                                                       <h6><%= r.getUbicacionDescrita() %></h6>
+                                                                       <h1 class="mb-3 text-primary fw-bolder fs-4"><span><%=""+prec.get(i).getPrecioNoche() %>$</span><span class="text-900 fs--1 fw-normal">/Por Noche</span></h1>
+                                                                       <h1 class="mb-3 text-primary fw-bolder fs-4"><span></span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div id="Informacion" class="col-md-3 mb-3 mb-md-0 h-100">
+                                                                <p><b>Destalles:</b></p>
+                                                                <p><b><%= r.getNombre() %></b></p>
+                                                                <p>Localidad: <%= r.getLocalidad() %></p>
+                                                                <p>Valoracion global: <%= r.getValoracionGlobal() %></p>
+                                                                <p>Maximo de huespedes: <%= r.getMaxHuespedes() %></p>
+                                                                <p>Aseos: <%= r.getNumBaños() %>  Camas: <%= r.getNumCamas() %>  Dormitorios: <%= r.getNumDormitorios() %>  </p>
+                                                                <p><%= r.getUbicacionDescrita() %></p>
+                                                                <p><b>Características:</b></p>
+                                                                <p><%= r.getCaracteristicas() %></p>
+                                                                <p><b>Servicios:</b></p>
+                                                                <p><%= r.getServicio() %></p>
+                                                                <p>Contacto: <%= r.getAnfitrion_email() %></p>
+                                                                <div id="mostrarSiempre"><span class="badge bg-secondary ms-3 me-1 p-2"><a id="close" href="#anuncios">Close</a></span></div>
+
+                                                            </div>
+                                                      <%} // cierre del for
+                                                    }
+                                                }else{  }  
+                                            }else{ %>
+                                                   <h5 class="fw-bold fs-3 fs-lg-5 lh-sm mb-3" style="color: red" ><%=fechasMal %></h5>
+                                         <% } %>
+
+                                    </div>
+                               </div>
+                            </div>
                         </div>
                     </div>
-                        <div id="Informacion" class="col-md-3 mb-3 mb-md-0 h-100" style="visibility:hidden;">
-                            <p><b>Destalles:</b></p>
-                            <p><b><%= r.getNombre() %></b></p>
-                            <p>Localidad: <%= r.getLocalidad() %></p>
-                            <p>Valoracion global: <%= r.getValoracionGlobal() %></p>
-                            <p>Maximo de huespedes: <%= r.getMaxHuespedes() %></p>
-                            <p>Aseos: <%= r.getNumBaños() %>  Camas: <%= r.getNumCamas() %>  Dormitorios: <%= r.getNumDormitorios() %>  </p>
-                            <p><%= r.getUbicacionDescrita() %></p>
-                            <p><b>Características:</b></p>
-                            <p><%= r.getCaracteristicas() %></p>
-                            <p><b>Servicios:</b></p>
-                            <p><%= r.getServicio() %></p>
-                            <p>Contacto: <%= r.getAnfitrion_email() %></p> 
-                        </div>
-                    <%} // cierre del for
-                   }else{  }  
-                    }else{ %>
-                           <h5 class="fw-bold fs-3 fs-lg-5 lh-sm mb-3" style="color: red" ><%=fechasMal %></h5>
-                    <% } %>
-                    
-                 </div>
-                 </div>
-                    </div>
-                    </div>
-                  </div>
-                    </div>
-                    </div>
-                    </div> 
+                </div>
+            </div>
         </section>
         
         
@@ -260,61 +270,60 @@
 
       
         <section id="testimonial" >
-            <%if(dataList==null){%>
-        <div class="container">
-          <div class="row h-100">
-            <div class="col-lg-7 mx-auto text-center mb-6">
-              <h5 class="fw-bold fs-3 fs-lg-5 lh-sm mb-3">Flash Deals</h5>
-            </div>
-            <div class="col-12">
-              <div class="carousel slide" id="carouselTestimonials" data-bs-ride="carousel">
-                <div class="carousel-inner">
-                  <div class="carousel-item active" data-bs-interval="10000">
-                    <div class="row h-100 align-items-center g-2">
-                      <div class="col-md-4 mb-3 mb-md-0 h-100">
-                        <div class="card card-span h-100 text-white"><img class="img-fluid h-100" src="assets/img/gallery/maldives.png" alt="..." />
-                          <div class="card-img-overlay ps-0"><span class="badge bg-primary ms-3 me-1 p-2"><i class="fas fa-clock me-1"></i><span>20:04:32:21</span></span><span class="badge bg-secondary p-2"><i class="fas fa-bolt me-1"></i><span>trending</span><i class="fas fa-bolt ms-1"> </i></span></div>
-                          <div class="card-body ps-0">
-                            <h5 class="fw-bold text-1000 mb-4 text-truncate">Mermaid Beach Resort: The most joyful way to spend your holiday</h5>
-                            <div class="d-flex align-items-center justify-content-start"><span class="text-800 fs--1 me-2"><i class="fas fa-map-marker-alt"></i></span><span class="text-900 me-3">Maldives</span><span class="text-800 fs--1 me-2"><i class="fas fa-calendar"></i></span><span class="text-900">4 days</span></div>
-                            <p class="text-decoration-line-through text-900 mt-3 mb-0">$200</p>
-                            <h1 class="mb-3 text-primary fw-bolder fs-4"><span>$175</span><span class="text-900 fs--1 fw-normal">/Per person</span></h1><span class="badge bg-soft-secondary p-2"><i class="fas fa-tag text-secondary fs--1 me-1"></i><span class="text-secondary fw-normal fs-1">-15%</span></span>
+        <%if(dataList==null){%>
+            <div class="container">
+              <div class="row h-100">
+                <div class="col-lg-7 mx-auto text-center mb-6">
+                  <h5 class="fw-bold fs-3 fs-lg-5 lh-sm mb-3">Flash Deals</h5>
+                </div>
+                <div class="col-12">
+                  <div class="carousel slide" id="carouselTestimonials" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                      <div class="carousel-item active" data-bs-interval="10000">
+                        <div class="row h-100 align-items-center g-2">
+                          <div class="col-md-4 mb-3 mb-md-0 h-100">
+                            <div class="card card-span h-100 text-white"><img class="img-fluid h-100" src="assets/img/gallery/maldives.png" alt="..." />
+                              <div class="card-img-overlay ps-0"><span class="badge bg-primary ms-3 me-1 p-2"><i class="fas fa-clock me-1"></i><span>20:04:32:21</span></span><span class="badge bg-secondary p-2"><i class="fas fa-bolt me-1"></i><span>trending</span><i class="fas fa-bolt ms-1"> </i></span></div>
+                              <div class="card-body ps-0">
+                                <h5 class="fw-bold text-1000 mb-4 text-truncate">Mermaid Beach Resort: The most joyful way to spend your holiday</h5>
+                                <div class="d-flex align-items-center justify-content-start"><span class="text-800 fs--1 me-2"><i class="fas fa-map-marker-alt"></i></span><span class="text-900 me-3">Maldives</span><span class="text-800 fs--1 me-2"><i class="fas fa-calendar"></i></span><span class="text-900">4 days</span></div>
+                                <p class="text-decoration-line-through text-900 mt-3 mb-0">$200</p>
+                                <h1 class="mb-3 text-primary fw-bolder fs-4"><span>$175</span><span class="text-900 fs--1 fw-normal">/Per person</span></h1><span class="badge bg-soft-secondary p-2"><i class="fas fa-tag text-secondary fs--1 me-1"></i><span class="text-secondary fw-normal fs-1">-15%</span></span>
+                              </div>
+                            </div>
                           </div>
-                        </div>
-                      </div>
-                      <div class="col-md-4 mb-3 mb-md-0 h-100">
-                        <div class="card card-span h-100 text-white"><img class="img-fluid h-100" src="assets/img/gallery/bora.jpg" alt="..." />
-                          <div class="card-img-overlay ps-0"><span class="badge bg-primary ms-3 me-1 p-2"><i class="fas fa-clock me-1"></i><span>20:04:32:21</span></span><span class="badge bg-secondary p-2"><i class="fas fa-bolt me-1"></i><span>trending</span><i class="fas fa-bolt ms-1"> </i></span></div>
-                          <div class="card-body ps-0">
-                            <h5 class="fw-bold text-1000 mb-4 text-truncate">Bora Bora: Enjoy a romantic cruise tour of at the sunny side of life</h5>
-                            <div class="d-flex align-items-center justify-content-start"><span class="text-800 fs--1 me-2"><i class="fas fa-map-marker-alt"></i></span><span class="text-900 me-3">Maldives</span><span class="text-800 fs--1 me-2"><i class="fas fa-calendar"></i></span><span class="text-900">4 days</span></div>
-                            <p class="text-decoration-line-through text-900 mt-3 mb-0">$300</p>
-                            <h1 class="mb-3 text-primary fw-bolder fs-4"><span>$250</span><span class="text-900 fs--1 fw-normal">/Per person</span></h1><span class="badge bg-soft-secondary p-2"><i class="fas fa-tag text-secondary fs--1 me-1"></i><span class="text-secondary fw-normal fs-1">-15%</span></span>
+                          <div class="col-md-4 mb-3 mb-md-0 h-100">
+                            <div class="card card-span h-100 text-white"><img class="img-fluid h-100" src="assets/img/gallery/bora.jpg" alt="..." />
+                              <div class="card-img-overlay ps-0"><span class="badge bg-primary ms-3 me-1 p-2"><i class="fas fa-clock me-1"></i><span>20:04:32:21</span></span><span class="badge bg-secondary p-2"><i class="fas fa-bolt me-1"></i><span>trending</span><i class="fas fa-bolt ms-1"> </i></span></div>
+                              <div class="card-body ps-0">
+                                <h5 class="fw-bold text-1000 mb-4 text-truncate">Bora Bora: Enjoy a romantic cruise tour of at the sunny side of life</h5>
+                                <div class="d-flex align-items-center justify-content-start"><span class="text-800 fs--1 me-2"><i class="fas fa-map-marker-alt"></i></span><span class="text-900 me-3">Maldives</span><span class="text-800 fs--1 me-2"><i class="fas fa-calendar"></i></span><span class="text-900">4 days</span></div>
+                                <p class="text-decoration-line-through text-900 mt-3 mb-0">$300</p>
+                                <h1 class="mb-3 text-primary fw-bolder fs-4"><span>$250</span><span class="text-900 fs--1 fw-normal">/Per person</span></h1><span class="badge bg-soft-secondary p-2"><i class="fas fa-tag text-secondary fs--1 me-1"></i><span class="text-secondary fw-normal fs-1">-15%</span></span>
+                              </div>
+                            </div>
                           </div>
-                        </div>
-                      </div>
-                      <div class="col-md-4 mb-3 mb-md-0 h-100">
-                        <div class="card card-span h-100 text-white"><img class="img-fluid h-100" src="assets/img/gallery/dhigu.png" alt="..." />
-                          <div class="card-img-overlay ps-0"><span class="badge bg-primary ms-3 me-1 p-2"><i class="fas fa-clock me-1"></i><span>20:04:32:21</span></span><span class="badge bg-secondary p-2"><i class="fas fa-bolt me-1"></i><span>trending</span><i class="fas fa-bolt ms-1"> </i></span></div>
-                          <div class="card-body ps-0">
-                            <h5 class="fw-bold text-1000 mb-4 text-truncate">Fihalhohi Island Resort: Luxury destination without compromise</h5>
-                            <div class="d-flex align-items-center justify-content-start"><span class="text-800 fs--1 me-2"><i class="fas fa-map-marker-alt"></i></span><span class="text-900 me-3">Maldives</span><span class="text-800 fs--1 me-2"><i class="fas fa-calendar"></i></span><span class="text-900">4 days</span></div>
-                            <p class="text-decoration-line-through text-900 mt-3 mb-0">$375</p>
-                            <h1 class="mb-3 text-primary fw-bolder fs-4"><span>$300</span><span class="text-900 fs--1 fw-normal">/Per person</span></h1><span class="badge bg-soft-secondary p-2"><i class="fas fa-tag text-secondary fs--1 me-1"></i><span class="text-secondary fw-normal fs-1">-15%</span></span>
+                          <div class="col-md-4 mb-3 mb-md-0 h-100">
+                            <div class="card card-span h-100 text-white"><img class="img-fluid h-100" src="assets/img/gallery/dhigu.png" alt="..." />
+                              <div class="card-img-overlay ps-0"><span class="badge bg-primary ms-3 me-1 p-2"><i class="fas fa-clock me-1"></i><span>20:04:32:21</span></span><span class="badge bg-secondary p-2"><i class="fas fa-bolt me-1"></i><span>trending</span><i class="fas fa-bolt ms-1"> </i></span></div>
+                              <div class="card-body ps-0">
+                                <h5 class="fw-bold text-1000 mb-4 text-truncate">Fihalhohi Island Resort: Luxury destination without compromise</h5>
+                                <div class="d-flex align-items-center justify-content-start"><span class="text-800 fs--1 me-2"><i class="fas fa-map-marker-alt"></i></span><span class="text-900 me-3">Maldives</span><span class="text-800 fs--1 me-2"><i class="fas fa-calendar"></i></span><span class="text-900">4 days</span></div>
+                                <p class="text-decoration-line-through text-900 mt-3 mb-0">$375</p>
+                                <h1 class="mb-3 text-primary fw-bolder fs-4"><span>$300</span><span class="text-900 fs--1 fw-normal">/Per person</span></h1><span class="badge bg-soft-secondary p-2"><i class="fas fa-tag text-secondary fs--1 me-1"></i><span class="text-secondary fw-normal fs-1">-15%</span></span>
+                              </div>
+                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
+                    <div class="row flex-center">
+                    </div>
                   </div>
-                </div>
-                <div class="row flex-center">
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-        
-      <% } %>
+    <% } %>
       </section> 
       
       

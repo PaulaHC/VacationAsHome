@@ -1,7 +1,7 @@
 <%-- 
     Document   : register
     Created on : 18 dic. 2022, 18:04:38
-    Author     : franc
+    Author     : franc y Paula
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -57,13 +57,13 @@
           </div>
         </div>
       </nav>
+        
       <section class="mt-7 py-0">
-        <div class="bg-holder w-50 bg-right d-none d-lg-block" style="background-image:url(assets/img/gallery/dhigu.png);">
-        </div>
+        <div class="bg-holder w-50 bg-right d-none d-lg-block" style="background-image:url(assets/img/gallery/dhigu.png);"></div>
         <!--/.bg-holder-->
         
         <%  String email = (String) session.getAttribute("user");
-    if(email!=null) session.removeAttribute("user");%>
+            if(email!=null) session.removeAttribute("user");%>
 
         <div class="container">
           <div class="row">
