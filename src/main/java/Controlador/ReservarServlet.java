@@ -78,6 +78,7 @@ public class ReservarServlet extends HttpServlet {
                 res.setComentarios(comentarios);
                 insertarReserva(res);
                 nextep="/vistaCliente.jsp";
+                texto="Reserva Registrada Correctamente";
             }
             else {
                 precio=PreciosDB.precioAlojamientoReserva(ubprecisa);
@@ -95,6 +96,7 @@ public class ReservarServlet extends HttpServlet {
         try {
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextep);
             request.setAttribute("textReserva", texto);
+            request.setAttribute("fechasMal", texto);
             request.setAttribute("res", res);
             request.setAttribute("imagen", img);
             request.setAttribute("nom", nom);

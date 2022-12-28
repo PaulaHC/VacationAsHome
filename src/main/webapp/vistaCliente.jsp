@@ -178,6 +178,9 @@
                                            String fechasMal = (String) request.getAttribute("fechasMal");
                                                 if(fechasMal==null){
                                                     if(dataList!=null){
+                                                        if(dataList.size()<=0){ %>
+                                                       <h5 class="fw-bold fs-3 fs-lg-5 lh-sm mb-3" style="color: red" >No results found </h5>
+                                                    <% } 
                                                         for(int i=0; i<dataList.size(); i++){
                                                             Alojamiento r = dataList.get(i);
                                                             Imagen ig=im.get(i);
@@ -223,12 +226,16 @@
                                                             </div>
 
                                                        <%} // cierre del for
-                                                    }else{ %>
+                                                    }else { %>
                                                        <h5 class="fw-bold fs-3 fs-lg-5 lh-sm mb-3" style="color: red" >No results found</h5>
                                                    <% }  
-                                                }else{ %>
+                                                }else{ 
+                                                   if(fechasMal.equals("Reserva Registrada Correctamente")){ %>
+                                                       <h5 class="fw-bold fs-3 fs-lg-5 lh-sm mb-3" style="color: green" ><%=fechasMal %></h5>
+                                                    <% }else{ %>
                                                        <h5 class="fw-bold fs-3 fs-lg-5 lh-sm mb-3" style="color: red" ><%=fechasMal %></h5>
-                                                <% } %>
+                                            <%     }
+                                                } %>
                                     </div>
                                 </div>
                             </div>

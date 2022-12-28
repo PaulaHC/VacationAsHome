@@ -98,6 +98,7 @@ public class ConsultarAlojamientosServlet extends HttpServlet {
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextStep);
             request.setAttribute("Aloj", Aloj);
             request.setAttribute("img", img);
+            request.setAttribute("correcto", "nuevo");
             request.setAttribute("precios", precios);
             if(banderaCliente){
                 request.setAttribute("fechaEntrada", date1);

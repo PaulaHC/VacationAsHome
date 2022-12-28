@@ -76,7 +76,7 @@ public class NuevosPreciosServlet extends HttpServlet {
                 date1 = dateFormat.parse(fechaInicio);
                 fechaFin = request.getParameter("fechaFin");
                 date2 = dateFormat.parse(fechaFin);
-                if(date2.after(date1)){
+                if(date2.after(date1) && date2!=null && date1!=null){
                     Precio p = new Precio();
                     p.setPrecioNoche(precioNoche);
                     p.setPrecioFinDeSemana(precioFinSemana);
@@ -105,6 +105,10 @@ public class NuevosPreciosServlet extends HttpServlet {
             }
            
         }catch(NumberFormatException | ParseException e){
+            flag=true;
+            Aloj=Datos.AlojamientoDB.consultaAnfitrion(email,request.getParameter("localidad"), "");
+                precios = Datos.PreciosDB.buscarPreciosAlojamientos(Aloj);
+                img=Datos.ImagenDB.buscarImagenesAlojamientos(Aloj);
             System.out.println(e);
         }
         
@@ -115,6 +119,8 @@ public class NuevosPreciosServlet extends HttpServlet {
                 request.setAttribute("Aloj", Aloj);
                 request.setAttribute("img", img);
                 request.setAttribute("precios", precios);
+            }else{
+                request.setAttribute("correcto", "Nuevos Precios Registrados Correctamente");
             }
             dispatcher.forward(request, response);
         } catch (IOException | ServletException e) {

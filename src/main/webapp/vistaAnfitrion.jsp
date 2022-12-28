@@ -120,10 +120,14 @@
                             ArrayList<Alojamiento> dataList= (ArrayList<Alojamiento>)request.getAttribute("Aloj");
                             ArrayList<Imagen> im = (ArrayList<Imagen> )request.getAttribute("img");
                             ArrayList<Precio> prec = (ArrayList<Precio> )request.getAttribute("precios");
+                            String correcto = (String)request.getAttribute("correcto");
+                            if(correcto!=null && correcto.equals("Nuevos Precios Registrados Correctamente")){ %>
+                                <h5 class="fw-bold fs-3 fs-lg-5 lh-sm mb-3" style="color: green" ><%= correcto%></h5>
+                            <% } 
                             if(dataList!=null){
                                 if(dataList.size()==0){ %>
                                     <h5 class="fw-bold fs-3 fs-lg-5 lh-sm mb-3" style="color: red" >No results found</h5>
-                            <%    }else 
+                            <%    }else{ 
                                     for(int i=0; i<dataList.size(); i++){
                                         Alojamiento r = dataList.get(i);
                                         Imagen ig=im.get(i);
@@ -140,16 +144,16 @@
                                 <h5 class="fw-bold text-1000 mb-4 text-truncate" ><%= r.getNombre() %></h5>
                                 <div class="mt-2">
                                     <label class="form-label visually-hidden" for="precioNoche" name="precioNoche" type="number">precioNoche</label> <span class="nav-link-icon text-800 fs--1 input-box-icon"><i class="fas fa-map-marker-alt">precioNoche</i></span>
-                                    <input class="form-control input-box form-voyage-control" id="precioNoche" name="precioNoche" type="text" placeholder=<%=prec.get(i).getPrecioNoche() %>/>
+                                    <input class="form-control input-box form-voyage-control" id="precioNoche" name="precioNoche" type="text" placeholder="Precio Actual: <%=prec.get(i).getPrecioNoche() %>"/>
                                 </div> <div class="mt-2">
                                     <label class="form-label visually-hidden" for="precioFinSemana" name="precioFinSemana" type="number">precioFinSemana</label><span class="nav-link-icon text-800 fs--1 input-box-icon"><i class="fas fa-map-marker-alt">precioFinSemana</i></span>
-                                    <input class="form-control input-box form-voyage-control" id="precioFinSemana" name="precioFinSemana" type="text" placeholder=<%=prec.get(i).getPrecioFinDeSemana() %>/>
+                                    <input class="form-control input-box form-voyage-control" id="precioFinSemana" name="precioFinSemana" type="text" placeholder="Precio Actual: <%=prec.get(i).getPrecioFinDeSemana() %>"/>
                                 </div> <div class="mt-2">
                                     <label class="form-label visually-hidden" for="precioSemana" name="precioSemana" type="number">precioSemana</label><span class="nav-link-icon text-800 fs--1 input-box-icon"><i class="fas fa-map-marker-alt">precioSemana</i></span>
-                                    <input class="form-control input-box form-voyage-control" id="precioSemana" name="precioSemana" type="text" placeholder=<%=+prec.get(i).getPrecioSemana() %>/>
+                                    <input class="form-control input-box form-voyage-control" id="precioSemana" name="precioSemana" type="text" placeholder="Precio Actual: <%=+prec.get(i).getPrecioSemana() %>"/>
                                 </div> <div class="mt-2">
                                     <label class="form-label visually-hidden" for="precioMes" name="precioMes" type="number">precioMes</label><span class="nav-link-icon text-800 fs--1 input-box-icon"><i class="fas fa-map-marker-alt">precioMes</i></span>
-                                    <input class="form-control input-box form-voyage-control" id="precioMes" name="precioMes" type="text" placeholder=<%=+prec.get(i).getPrecioMes() %>/><span class="nav-link-icon text-800 fs--1 input-box-icon">
+                                    <input class="form-control input-box form-voyage-control" id="precioMes" name="precioMes" type="text" placeholder="Precio Actual: <%=+prec.get(i).getPrecioMes() %>"/><span class="nav-link-icon text-800 fs--1 input-box-icon">
                                 </div><div class="mt-2">
                                     <label class="form-label visually-hidden" for="fechaInicio" name="fechaInicio" type="date">fechaInicio</label><span class="nav-link-icon text-800 fs--1 input-box-icon"><i class="fas fa-map-marker-alt">fechaInicioPrecios</i></span>
                                     <input class="form-control input-box form-voyage-control" id="fechaInicio" name="fechaInicio" type="date" placeholder=<%=prec.get(i).getFechaIncio() %>/>
@@ -157,12 +161,12 @@
                                     <span class="form-label visually-hidden" for="fechaFin" name="fechaFin" type="date">fechaFin</span><span class="nav-link-icon text-800 fs--1 input-box-icon"><i class="fas fa-map-marker-alt">fechaFinPrecios</i></span>
                                     <input class="form-control input-box form-voyage-control" id="fechaFin" name="fechaFin" type="date" placeholder=<%=prec.get(i).getFechaFin() %>/>
                                 </div>
-                                <% String correcto = (String)request.getAttribute("correcto");
-                                    if(correcto!=null){  %>
+                                <% correcto = (String)request.getAttribute("correcto");
+                                    if(correcto!=null && correcto.equals("mal")){  %>
                                         <div class="mt-2">
-                                        <p class="fw-bold fs-1 fs-lg-3 lh-sm mb-3 " style="color:blue" >Datos Mal Introducidos.</p>
+                                            <p class="fw-bold fs-1 fs-lg-3 lh-sm mb-3 " style="color:blue" >Datos Mal Introducidos.</p>
                                         </div>
-                                <%  } %>
+                                <%  }else{} %>
                                 <div class="mt-3 col-12 col-xl-12 col-lg-12 d-grid">
                                     <button class="btn btn-secondary" type="submit">Guardar</button>
                                 </div>
@@ -173,13 +177,13 @@
                                     
                       </div>
                                     
-                        <% } //cierre del primer for
+                        <%  }  
+                                } //cierre del primer for
                         }%>
                         
                     </div>
                   </div>
                 </div> 
-              
               </div>
             </div>
           </div>

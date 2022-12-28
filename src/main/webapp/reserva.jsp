@@ -73,7 +73,7 @@
                             float prec = (float)request.getAttribute("prec");
                             String  nom = (String)request.getAttribute("nom");
                             String comment = (String) request.getAttribute("textReserva");
-                            
+                             
                         if(dataList!=null||comment.equals("Empty comment")){
                              SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
                              String date1=dateFormat.format(dataList.getFechaEntrada());
@@ -108,7 +108,6 @@
                                       </div>
                                   </div>
                               </div>
-                
           </form>
       
       <!-- ============================================-->
